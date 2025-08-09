@@ -114,8 +114,10 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
       footer={null}
       width={1000}
       centered
-      bodyStyle={{ maxHeight: '70vh', overflowY: 'auto' }}
-      maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
+      styles={{
+        body: { maxHeight: '70vh', overflowY: 'auto' },
+        mask: { backgroundColor: 'rgba(0, 0, 0, 0.3)' }
+      }}
     >
       <div style={{ padding: '16px 0' }}>
         {shortcutCategories.map((category, categoryIndex) => (

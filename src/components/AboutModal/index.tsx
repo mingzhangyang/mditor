@@ -35,6 +35,12 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
       open={visible}
       onCancel={onClose}
       footer={[
+        <Button key="orangely" onClick={() => window.open('https://orangely.xyz', '_blank')}>
+          Orangely
+        </Button>,
+        <Button key="orangely-app" onClick={() => window.open('https://mditor.orangely.xyz', '_blank')}>
+          mditor.orangely.xyz
+        </Button>,
         <Button key="github" icon={<GithubOutlined />} onClick={() => window.open('https://github.com/mingzhangyang/mditor', '_blank')}>
           {t('about.viewOnGithub')}
         </Button>,
@@ -58,6 +64,12 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
             <Tag color="blue">v1.0.0</Tag>
             <Tag color="green">React 18</Tag>
             <Tag color="orange">TypeScript</Tag>
+            <a href="https://orangely.xyz" target="_blank" rel="noreferrer" style={{ marginLeft: 4 }}>
+              <Tag color="purple">Orangely</Tag>
+            </a>
+            <a href="https://mditor.orangely.xyz" target="_blank" rel="noreferrer" style={{ marginLeft: 4 }}>
+              <Tag color="geekblue">mditor.orangely.xyz</Tag>
+            </a>
           </div>
         </div>
 

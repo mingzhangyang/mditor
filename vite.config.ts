@@ -26,10 +26,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          antd: ['antd', '@ant-design/icons'],
-          markdown: ['react-markdown', 'remark-gfm', 'unified'],
-          table: ['@tanstack/react-table'],
-          utils: ['lodash', 'classnames']
+          antd: ['antd', '@ant-design/icons']
         }
       }
     }

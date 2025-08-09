@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Button, Space, Dropdown, Typography, App } from 'antd'
+import { Layout, Button, Space, Dropdown, Typography, App, Tag } from 'antd'
 import {
   MenuOutlined,
   SaveOutlined,
@@ -212,9 +212,14 @@ const Header: React.FC = () => {
             onClick={() => setSidebarVisible(!sidebarVisible)}
             title={t('header.toggleSidebar')}
           />
-          <Title level={4} style={{ margin: 0, color: '#1890ff' }}>
-            {t('header.title')}
-          </Title>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Title level={4} style={{ margin: 0, color: '#1890ff' }}>
+              {t('header.title')}
+            </Title>
+            <a href="https://orangely.xyz" target="_blank" rel="noreferrer">
+              <Tag color="purple" style={{ cursor: 'pointer' }}>Orangely</Tag>
+            </a>
+          </div>
         </div>
 
         {/* 中间工具栏 */}
