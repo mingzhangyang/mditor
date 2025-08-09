@@ -175,7 +175,7 @@ const Header: React.FC = () => {
       label: t('header.guide'),
       onClick: () => {
         // Open user guide in new tab or show guide modal
-        window.open('https://github.com/your-repo/wiki', '_blank')
+      window.open('https://github.com/mingzhangyang/mditor', '_blank')
       },
     },
     {
@@ -189,8 +189,8 @@ const Header: React.FC = () => {
         </span>
       ),
       onClick: () => {
-        window.open('https://github.com/your-repo/markdown-table-editor', '_blank')
-      },
+          window.open('https://github.com/mingzhangyang/mditor', '_blank')
+        },
     },
     {
       key: 'about',

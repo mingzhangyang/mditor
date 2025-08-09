@@ -3,7 +3,7 @@ import { Modal, Typography, Space, Divider, Tag, Button } from 'antd'
 import { GithubOutlined, HeartOutlined } from '@ant-design/icons'
 import { useI18n } from '@/i18n'
 
-const { Title, Paragraph, Text } = Typography
+const { Title, Text } = Typography
 
 interface AboutModalProps {
   visible: boolean
@@ -14,14 +14,14 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
   const { t } = useI18n()
 
   const features = [
-    'Visual table editing with drag & drop',
-    'Real-time Markdown synchronization',
-    'Multiple import/export formats',
-    'Rich styling and formatting options',
-    'Keyboard shortcuts support',
-    'Undo/Redo functionality',
-    'Multi-language support',
-    'Dark/Light theme'
+    t('about.visualTableEditing'),
+    t('about.realtimeMarkdownSync'),
+    t('about.multipleImportExportFormats'),
+    t('about.richStylingOptions'),
+    t('about.keyboardShortcutsSupport'),
+    t('about.undoRedoFunctionality'),
+    t('about.multiLanguageSupport'),
+    t('about.darkLightTheme')
   ]
 
   const supportedFormats = {
@@ -35,8 +35,8 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
       open={visible}
       onCancel={onClose}
       footer={[
-        <Button key="github" icon={<GithubOutlined />} onClick={() => window.open('https://github.com', '_blank')}>
-          View on GitHub
+        <Button key="github" icon={<GithubOutlined />} onClick={() => window.open('https://github.com/mingzhangyang/mditor', '_blank')}>
+          {t('about.viewOnGithub')}
         </Button>,
         <Button key="close" type="primary" onClick={onClose}>
           {t('common.close')}
@@ -48,11 +48,11 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
       <div style={{ padding: '20px 0' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <Title level={2} style={{ marginBottom: 8, color: '#1890ff' }}>
-            📊 Markdown Table Editor
+          <Title level={2} style={{ marginBottom: 8, color: 'var(--primary-color)' }}>
+            📊 {t('about.title')}
           </Title>
           <Text type="secondary" style={{ fontSize: 16 }}>
-            A powerful web application for visualizing and editing Markdown tables
+            {t('about.subtitle')}
           </Text>
           <div style={{ marginTop: 12 }}>
             <Tag color="blue">v1.0.0</Tag>
@@ -63,24 +63,13 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
 
         <Divider />
 
-        {/* Description */}
-        <div style={{ marginBottom: 24 }}>
-          <Title level={4}>✨ What is this?</Title>
-          <Paragraph>
-            This is a feature-rich web application designed to make working with Markdown tables 
-            intuitive and efficient. Whether you're creating documentation, organizing data, or 
-            preparing content for your projects, our editor provides a seamless visual interface 
-            for table creation and editing.
-          </Paragraph>
-        </div>
-
         {/* Key Features */}
         <div style={{ marginBottom: 24 }}>
-          <Title level={4}>🚀 Key Features</Title>
+          <Title level={4}>🚀 {t('about.features')}</Title>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 16px' }}>
             {features.map((feature, index) => (
               <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
-                <span style={{ color: '#52c41a', marginRight: 8 }}>✓</span>
+                <span style={{ color: 'var(--success-color)', marginRight: 8 }}>✓</span>
                 <Text>{feature}</Text>
               </div>
             ))}
@@ -89,10 +78,10 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
 
         {/* Supported Formats */}
         <div style={{ marginBottom: 24 }}>
-          <Title level={4}>📁 Supported Formats</Title>
+          <Title level={4}>📁 {t('about.supportedFormats')}</Title>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             <div>
-              <Text strong>Import:</Text>
+              <Text strong>{t('about.importFormats')}:</Text>
               <ul style={{ marginTop: 8, paddingLeft: 20 }}>
                 {supportedFormats.import.map((format, index) => (
                   <li key={index}><Text type="secondary">{format}</Text></li>
@@ -100,7 +89,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
               </ul>
             </div>
             <div>
-              <Text strong>Export:</Text>
+              <Text strong>{t('about.exportFormats')}:</Text>
               <ul style={{ marginTop: 8, paddingLeft: 20 }}>
                 {supportedFormats.export.map((format, index) => (
                   <li key={index}><Text type="secondary">{format}</Text></li>
@@ -110,27 +99,16 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
           </div>
         </div>
 
-        {/* Quick Start */}
-        <div style={{ marginBottom: 24 }}>
-          <Title level={4}>🎯 Quick Start</Title>
-          <ol style={{ paddingLeft: 20 }}>
-            <li><Text>Start editing the default table or import your own data</Text></li>
-            <li><Text>Use the visual editor to modify cells, add/remove rows and columns</Text></li>
-            <li><Text>Apply styling using the sidebar style panel</Text></li>
-            <li><Text>Export your table in your preferred format</Text></li>
-          </ol>
-        </div>
-
         {/* Keyboard Shortcuts */}
         <div style={{ marginBottom: 24 }}>
-          <Title level={4}>⌨️ Keyboard Shortcuts</Title>
+          <Title level={4}>⌨️ {t('about.keyboardShortcuts')}</Title>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px 16px', fontSize: 13 }}>
-            <div><Text code>Ctrl+O</Text> <Text type="secondary">Open file</Text></div>
-            <div><Text code>Ctrl+S</Text> <Text type="secondary">Save as Markdown</Text></div>
-            <div><Text code>Ctrl+Z</Text> <Text type="secondary">Undo</Text></div>
-            <div><Text code>Ctrl+Shift+Z</Text> <Text type="secondary">Redo</Text></div>
-            <div><Text code>F11</Text> <Text type="secondary">Toggle sidebar</Text></div>
-            <div><Text code>Tab</Text> <Text type="secondary">Navigate cells</Text></div>
+            <div><Text code>Ctrl+O</Text> <Text type="secondary">{t('about.openFile')}</Text></div>
+            <div><Text code>Ctrl+S</Text> <Text type="secondary">{t('about.saveFile')}</Text></div>
+            <div><Text code>Ctrl+Z</Text> <Text type="secondary">{t('about.undo')}</Text></div>
+            <div><Text code>Ctrl+Shift+Z</Text> <Text type="secondary">{t('about.redo')}</Text></div>
+            <div><Text code>F11</Text> <Text type="secondary">{t('about.toggleSidebar')}</Text></div>
+            <div><Text code>Tab</Text> <Text type="secondary">{t('about.navigateCells')}</Text></div>
           </div>
         </div>
 
@@ -139,13 +117,13 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
         {/* Footer */}
         <div style={{ textAlign: 'center' }}>
           <Space>
-            <Text type="secondary">Made with</Text>
+            <Text type="secondary">{t('about.madeWith')}</Text>
             <HeartOutlined style={{ color: '#ff4d4f' }} />
-            <Text type="secondary">by the community</Text>
+            <Text type="secondary">{t('about.byTheCommunity')}</Text>
           </Space>
           <div style={{ marginTop: 8 }}>
             <Text type="secondary" style={{ fontSize: 12 }}>
-              Open source • MIT License • Built with React & Ant Design
+              {t('about.openSource')} • {t('about.mitLicense')} • {t('about.builtWith')}
             </Text>
           </div>
         </div>

@@ -46,6 +46,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ visible, onClose }) => {
           transition: 'all 0.2s ease',
         }} />
       }
+      maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
       styles={{
         header: {
           borderBottom: '1px solid var(--border-color)',

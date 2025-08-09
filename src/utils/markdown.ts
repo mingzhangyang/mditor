@@ -290,14 +290,14 @@ export class MarkdownTableParser {
  * 转义 Markdown 特殊字符
  */
 export function escapeMarkdown(text: string): string {
-  return text.replace(/[|\\`*_{}\[\]()#+\-.!]/g, '\\$&');
+  return text.replace(/[|\\`*_{}[\]()#+\-.!]/g, '\\$&');
 }
 
 /**
  * 反转义 Markdown 特殊字符
  */
 export function unescapeMarkdown(text: string): string {
-  return text.replace(/\\([|\\`*_{}\[\]()#+\-.!])/g, '$1');
+  return text.replace(/\\([|\\`*_{}[\]()#+\-.!])/g, '$1');
 }
 
 /**

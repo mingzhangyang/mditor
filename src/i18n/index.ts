@@ -276,6 +276,112 @@ export interface TranslationKeys {
     noMatchingFiles: string
     clickOrDragToUpload: string
   }
+
+  // 快捷键模态框
+  shortcuts: {
+    title: string
+    subtitle: string
+    fileOperations: string
+    editing: string
+    navigation: string
+    selectionCopyPaste: string
+    tableStructure: string
+    formatting: string
+    interface: string
+    view: string
+    openImportFile: string
+    saveAsMarkdown: string
+    exportMenu: string
+    newTable: string
+    undoLastAction: string
+    redoLastAction: string
+    redoAlternative: string
+    clearSelectedCells: string
+    clearCellAndStartEditing: string
+    moveToNextCell: string
+    moveToPreviousCell: string
+    moveToCellBelow: string
+    moveToCellAbove: string
+    navigateWithArrowKeys: string
+    goToFirstCellInRow: string
+    goToLastCellInRow: string
+    selectAllCells: string
+    multiSelectCells: string
+    rangeSelectCells: string
+    copySelectedCells: string
+    pasteFromClipboard: string
+    cutSelectedCells: string
+    addRowAbove: string
+    addRowBelow: string
+    addColumnLeft: string
+    addColumnRight: string
+    deleteSelectedRow: string
+    deleteSelectedColumn: string
+    toggleBold: string
+    toggleItalic: string
+    toggleUnderline: string
+    alignLeft: string
+    alignCenter: string
+    alignRight: string
+    toggleSidebar: string
+    openSettings: string
+    showHelp: string
+    showShortcuts: string
+    closeModalsOrCancelEditing: string
+    tableView: string
+    markdownView: string
+    previewView: string
+    splitView: string
+    zoomIn: string
+    zoomOut: string
+    resetZoom: string
+  }
+
+  // 关于模态框
+  about: {
+    title: string
+    subtitle: string
+    version: string
+    features: string
+    visualTableEditing: string
+    realtimeMarkdownSync: string
+    multipleImportExportFormats: string
+    richStylingOptions: string
+    keyboardShortcutsSupport: string
+    undoRedoFunctionality: string
+    multiLanguageSupport: string
+    darkLightTheme: string
+    supportedFormats: string
+    importFormats: string
+    exportFormats: string
+    keyboardShortcuts: string
+    openFile: string
+    saveFile: string
+    undo: string
+    redo: string
+    toggleSidebar: string
+    navigateCells: string
+    madeWith: string
+    byTheCommunity: string
+    openSource: string
+    mitLicense: string
+    builtWith: string
+    viewOnGithub: string
+    view: {
+      title: string
+      zoomIn: string
+      zoomOut: string
+      resetZoom: string
+      toggleTheme: string
+    }
+    proTips: string
+    tip1: string
+    tip1Suffix: string
+    tip2: string
+    tip2Suffix: string
+    tip3: string
+    tip4: string
+  }
 }
 
 const translations: Record<Language, TranslationKeys> = {

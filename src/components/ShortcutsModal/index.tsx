@@ -1,5 +1,6 @@
 import React from 'react'
 import { Modal, Typography, Divider, Row, Col, Tag } from 'antd'
+import { useI18n } from '@/i18n'
 
 const { Title, Text } = Typography
 
@@ -9,92 +10,93 @@ interface ShortcutsModalProps {
 }
 
 const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => {
+  const { t } = useI18n()
 
   const shortcutCategories = [
     {
-      title: '📁 File Operations',
+      title: `📁 ${t('shortcuts.fileOperations')}`,
       shortcuts: [
-        { key: 'Ctrl+O', description: 'Open/Import file' },
-        { key: 'Ctrl+S', description: 'Save as Markdown' },
-        { key: 'Ctrl+Shift+S', description: 'Export menu' },
-        { key: 'Ctrl+N', description: 'New table' }
+        { key: 'Ctrl+O', description: t('shortcuts.openImportFile') },
+        { key: 'Ctrl+S', description: t('shortcuts.saveAsMarkdown') },
+        { key: 'Ctrl+Shift+S', description: t('shortcuts.exportMenu') },
+        { key: 'Ctrl+N', description: t('shortcuts.newTable') }
       ]
     },
     {
-      title: '✏️ Editing',
+      title: `✏️ ${t('shortcuts.editing')}`,
       shortcuts: [
-        { key: 'Ctrl+Z', description: 'Undo last action' },
-        { key: 'Ctrl+Shift+Z', description: 'Redo last action' },
-        { key: 'Ctrl+Y', description: 'Redo (alternative)' },
-        { key: 'Delete', description: 'Clear selected cells' },
-        { key: 'Backspace', description: 'Clear cell and start editing' }
+        { key: 'Ctrl+Z', description: t('shortcuts.undoLastAction') },
+        { key: 'Ctrl+Shift+Z', description: t('shortcuts.redoLastAction') },
+        { key: 'Ctrl+Y', description: t('shortcuts.redoAlternative') },
+        { key: 'Delete', description: t('shortcuts.clearSelectedCells') },
+        { key: 'Backspace', description: t('shortcuts.clearCellAndStartEditing') }
       ]
     },
     {
-      title: '🧭 Navigation',
+      title: `🧭 ${t('shortcuts.navigation')}`,
       shortcuts: [
-        { key: 'Tab', description: 'Move to next cell' },
-        { key: 'Shift+Tab', description: 'Move to previous cell' },
-        { key: 'Enter', description: 'Move to cell below' },
-        { key: 'Shift+Enter', description: 'Move to cell above' },
-        { key: '↑↓←→', description: 'Navigate with arrow keys' },
-        { key: 'Home', description: 'Go to first cell in row' },
-        { key: 'End', description: 'Go to last cell in row' }
+        { key: 'Tab', description: t('shortcuts.moveToNextCell') },
+        { key: 'Shift+Tab', description: t('shortcuts.moveToPreviousCell') },
+        { key: 'Enter', description: t('shortcuts.moveToCellBelow') },
+        { key: 'Shift+Enter', description: t('shortcuts.moveToCellAbove') },
+        { key: '↑↓←→', description: t('shortcuts.navigateWithArrowKeys') },
+        { key: 'Home', description: t('shortcuts.goToFirstCellInRow') },
+        { key: 'End', description: t('shortcuts.goToLastCellInRow') }
       ]
     },
     {
-      title: '📋 Selection & Copy/Paste',
+      title: `📋 ${t('shortcuts.selectionCopyPaste')}`,
       shortcuts: [
-        { key: 'Ctrl+A', description: 'Select all cells' },
-        { key: 'Ctrl+Click', description: 'Multi-select cells' },
-        { key: 'Shift+Click', description: 'Range select cells' },
-        { key: 'Ctrl+C', description: 'Copy selected cells' },
-        { key: 'Ctrl+V', description: 'Paste clipboard content' },
-        { key: 'Ctrl+X', description: 'Cut selected cells' }
+        { key: 'Ctrl+A', description: t('shortcuts.selectAllCells') },
+        { key: 'Ctrl+Click', description: t('shortcuts.multiSelectCells') },
+        { key: 'Shift+Click', description: t('shortcuts.rangeSelectCells') },
+        { key: 'Ctrl+C', description: t('shortcuts.copySelectedCells') },
+        { key: 'Ctrl+V', description: t('shortcuts.pasteFromClipboard') },
+        { key: 'Ctrl+X', description: t('shortcuts.cutSelectedCells') }
       ]
     },
     {
-      title: '🏗️ Table Structure',
+      title: `🏗️ ${t('shortcuts.tableStructure')}`,
       shortcuts: [
-        { key: 'Ctrl+Shift+R', description: 'Add row above' },
-        { key: 'Ctrl+R', description: 'Add row below' },
-        { key: 'Ctrl+Shift+C', description: 'Add column left' },
-        { key: 'Ctrl+Alt+C', description: 'Add column right' },
-        { key: 'Ctrl+Shift+D', description: 'Delete selected row' },
-        { key: 'Ctrl+Alt+D', description: 'Delete selected column' }
+        { key: 'Ctrl+Shift+R', description: t('shortcuts.addRowAbove') },
+        { key: 'Ctrl+R', description: t('shortcuts.addRowBelow') },
+        { key: 'Ctrl+Shift+C', description: t('shortcuts.addColumnLeft') },
+        { key: 'Ctrl+Alt+C', description: t('shortcuts.addColumnRight') },
+        { key: 'Ctrl+Shift+D', description: t('shortcuts.deleteSelectedRow') },
+        { key: 'Ctrl+Alt+D', description: t('shortcuts.deleteSelectedColumn') }
       ]
     },
     {
-      title: '🎨 Formatting',
+      title: `🎨 ${t('shortcuts.formatting')}`,
       shortcuts: [
-        { key: 'Ctrl+B', description: 'Toggle bold' },
-        { key: 'Ctrl+I', description: 'Toggle italic' },
-        { key: 'Ctrl+U', description: 'Toggle underline' },
-        { key: 'Ctrl+Shift+L', description: 'Align left' },
-        { key: 'Ctrl+Shift+E', description: 'Align center' },
-        { key: 'Ctrl+Shift+R', description: 'Align right' }
+        { key: 'Ctrl+B', description: t('shortcuts.toggleBold') },
+        { key: 'Ctrl+I', description: t('shortcuts.toggleItalic') },
+        { key: 'Ctrl+U', description: t('shortcuts.toggleUnderline') },
+        { key: 'Ctrl+Shift+L', description: t('shortcuts.alignLeft') },
+        { key: 'Ctrl+Shift+E', description: t('shortcuts.alignCenter') },
+        { key: 'Ctrl+Shift+R', description: t('shortcuts.alignRight') }
       ]
     },
     {
-      title: '🔧 Interface',
+      title: `🔧 ${t('shortcuts.interface')}`,
       shortcuts: [
-        { key: 'F11', description: 'Toggle sidebar' },
-        { key: 'Ctrl+,', description: 'Open settings' },
-        { key: 'F1', description: 'Show help' },
-        { key: 'Ctrl+/', description: 'Show shortcuts' },
-        { key: 'Escape', description: 'Close modals/cancel editing' }
+        { key: 'F11', description: t('shortcuts.toggleSidebar') },
+        { key: 'Ctrl+,', description: t('shortcuts.openSettings') },
+        { key: 'F1', description: t('shortcuts.showHelp') },
+        { key: 'Ctrl+/', description: t('shortcuts.showShortcuts') },
+        { key: 'Escape', description: t('shortcuts.closeModalsOrCancelEditing') }
       ]
     },
     {
-      title: '👁️ View',
+      title: `👁️ ${t('shortcuts.view')}`,
       shortcuts: [
-        { key: 'Ctrl+1', description: 'Table view' },
-        { key: 'Ctrl+2', description: 'Markdown view' },
-        { key: 'Ctrl+3', description: 'Preview view' },
-        { key: 'Ctrl+4', description: 'Split view' },
-        { key: 'Ctrl++', description: 'Zoom in' },
-        { key: 'Ctrl+-', description: 'Zoom out' },
-        { key: 'Ctrl+0', description: 'Reset zoom' }
+        { key: 'Ctrl+1', description: t('shortcuts.tableView') },
+        { key: 'Ctrl+2', description: t('shortcuts.markdownView') },
+        { key: 'Ctrl+3', description: t('shortcuts.previewView') },
+        { key: 'Ctrl+4', description: t('shortcuts.splitView') },
+        { key: 'Ctrl++', description: t('shortcuts.zoomIn') },
+        { key: 'Ctrl+-', description: t('shortcuts.zoomOut') },
+        { key: 'Ctrl+0', description: t('shortcuts.resetZoom') }
       ]
     }
   ]
@@ -103,21 +105,22 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
     <Modal
       title={
         <div style={{ textAlign: 'center' }}>
-          <Title level={3} style={{ margin: 0 }}>⌨️ Keyboard Shortcuts</Title>
-          <Text type="secondary">Master these shortcuts to boost your productivity</Text>
+          <Title level={3} style={{ margin: 0 }}>⌨️ {t('shortcuts.title')}</Title>
+          <Text type="secondary">{t('shortcuts.subtitle')}</Text>
         </div>
       }
       open={visible}
       onCancel={onClose}
       footer={null}
-      width={800}
+      width={1000}
       centered
       bodyStyle={{ maxHeight: '70vh', overflowY: 'auto' }}
+      maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
     >
       <div style={{ padding: '16px 0' }}>
         {shortcutCategories.map((category, categoryIndex) => (
           <div key={categoryIndex} style={{ marginBottom: 32 }}>
-            <Title level={4} style={{ marginBottom: 16, color: '#1890ff' }}>
+            <Title level={4} style={{ marginBottom: 16, color: 'var(--primary-color)' }}>
               {category.title}
             </Title>
             <Row gutter={[16, 12]}>
@@ -128,9 +131,9 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
                     justifyContent: 'space-between', 
                     alignItems: 'center',
                     padding: '8px 12px',
-                    backgroundColor: '#fafafa',
+                    backgroundColor: 'var(--surface-color)',
                     borderRadius: 6,
-                    border: '1px solid #f0f0f0'
+                    border: '1px solid var(--border-color)'
                   }}>
                     <Text style={{ flex: 1 }}>{shortcut.description}</Text>
                     <Tag 
@@ -138,9 +141,9 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
                         fontFamily: 'monospace', 
                         fontSize: 12,
                         marginLeft: 8,
-                        backgroundColor: '#fff',
-                        border: '1px solid #d9d9d9',
-                        color: '#666'
+                        backgroundColor: 'var(--bg-color)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-secondary)'
                       }}
                     >
                       {shortcut.key}
@@ -156,16 +159,16 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
         <div style={{ 
           marginTop: 24, 
           padding: 16, 
-          backgroundColor: '#f6ffed', 
-          border: '1px solid #b7eb8f',
+          backgroundColor: 'var(--surface-color)', 
+          border: '1px solid var(--border-color)',
           borderRadius: 6 
         }}>
-          <Text strong style={{ color: '#389e0d' }}>💡 Pro Tips:</Text>
+          <Text strong style={{ color: 'var(--success-color)' }}>💡 {t('shortcuts.proTips')}:</Text>
           <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20 }}>
-            <li><Text>Hold <Tag>Shift</Tag> while using arrow keys to select ranges</Text></li>
-            <li><Text>Use <Tag>Ctrl+Click</Tag> to select multiple non-adjacent cells</Text></li>
-            <li><Text>Double-click any cell to start editing quickly</Text></li>
-            <li><Text>Drag column borders to resize columns visually</Text></li>
+            <li><Text>{t('shortcuts.tip1')} <Tag>Shift</Tag> {t('shortcuts.tip1Suffix')}</Text></li>
+            <li><Text>{t('shortcuts.tip2')} <Tag>Ctrl+Click</Tag> {t('shortcuts.tip2Suffix')}</Text></li>
+            <li><Text>{t('shortcuts.tip3')}</Text></li>
+            <li><Text>{t('shortcuts.tip4')}</Text></li>
           </ul>
         </div>
       </div>
