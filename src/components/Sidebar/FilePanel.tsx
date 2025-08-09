@@ -46,6 +46,8 @@ const FilePanel: React.FC = () => {
     setCurrentFile,
     updateFile,
     tableData,
+    cellStyles,
+    settings,
     setTableData,
     setMarkdownContent,
     saveToHistory,
@@ -190,7 +192,7 @@ const FilePanel: React.FC = () => {
         includeStyles: true,
         filename: fileName
       }
-      await ImportExportManager.export(file.data, exportOptions)
+      await ImportExportManager.export(file.data, exportOptions, cellStyles, settings)
       message.success(`${t('files.exportSuccess')}: ${fileName}`)
     } catch (error) {
       message.error(t('files.exportFailed'))

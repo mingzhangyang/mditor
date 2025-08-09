@@ -20,7 +20,9 @@ export const zhCN: TranslationKeys = {
     warning: '警告',
     info: '信息',
     unknown: '未知',
-    zoom: '缩放'
+    zoom: '缩放',
+    close: '关闭',
+    ok: '确定'
   },
   
   // 头部
@@ -45,9 +47,9 @@ export const zhCN: TranslationKeys = {
     saveMarkdown: '保存为 Markdown (Ctrl+S)',
     settingsTooltip: '设置',
     helpTooltip: '帮助',
-    shortcutsNotImplemented: '快捷键帮助功能待实现',
-    guideNotImplemented: '使用指南功能待实现',
-    aboutNotImplemented: '关于页面功能待实现'
+    shortcutsHelp: '快捷键帮助',
+    userGuide: '使用指南',
+    aboutApp: '关于应用'
   },
   
   // 侧边栏

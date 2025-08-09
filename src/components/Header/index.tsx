@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Layout, Button, Space, Dropdown, Typography, App } from 'antd'
 import {
   MenuOutlined,
@@ -14,6 +14,8 @@ import {
 import { useTableStore } from '@/store'
 import { ImportExportManager } from '@/utils/importExport'
 import { useI18n } from '@/i18n'
+import AboutModal from '@/components/AboutModal'
+import ShortcutsModal from '@/components/ShortcutsModal'
 import type { MenuProps } from 'antd'
 
 const { Header: AntHeader } = Layout
@@ -22,8 +24,12 @@ const { Title } = Typography
 const Header: React.FC = () => {
   const { message } = App.useApp()
   const { t } = useI18n()
+  const [aboutModalVisible, setAboutModalVisible] = useState(false)
+  const [shortcutsModalVisible, setShortcutsModalVisible] = useState(false)
   const {
     tableData,
+    cellStyles,
+    settings,
     sidebarVisible,
     setSidebarVisible,
     setSettingsModalVisible,
@@ -76,16 +82,16 @@ const Header: React.FC = () => {
           await ImportExportManager.export(tableData, { format: 'csv', filename: 'table.csv', includeStyles: false })
           break
         case 'excel':
-          await ImportExportManager.export(tableData, { format: 'excel', filename: 'table.xlsx', includeStyles: true })
+          await ImportExportManager.export(tableData, { format: 'excel', filename: 'table.xlsx', includeStyles: true }, cellStyles, settings)
           break
         case 'html':
-          await ImportExportManager.export(tableData, { format: 'html', filename: 'table.html', includeStyles: true })
+          await ImportExportManager.export(tableData, { format: 'html', filename: 'table.html', includeStyles: true }, cellStyles, settings)
           break
         case 'png':
-          await ImportExportManager.export(tableData, { format: 'png', filename: 'table.png', includeStyles: true })
+          await ImportExportManager.export(tableData, { format: 'png', filename: 'table.png', includeStyles: true }, cellStyles, settings)
           break
         case 'svg':
-          await ImportExportManager.export(tableData, { format: 'svg', filename: 'table.svg', includeStyles: true })
+          await ImportExportManager.export(tableData, { format: 'svg', filename: 'table.svg', includeStyles: true }, cellStyles, settings)
           break
         default:
           message.error(t('export.unsupportedFormat'))
@@ -161,14 +167,15 @@ const Header: React.FC = () => {
       key: 'shortcuts',
       label: t('header.shortcuts'),
       onClick: () => {
-        message.info(t('header.shortcutsNotImplemented'))
+        setShortcutsModalVisible(true)
       },
     },
     {
       key: 'guide',
       label: t('header.guide'),
       onClick: () => {
-        message.info(t('header.guideNotImplemented'))
+        // Open user guide in new tab or show guide modal
+        window.open('https://github.com/your-repo/wiki', '_blank')
       },
     },
     {
@@ -182,14 +189,14 @@ const Header: React.FC = () => {
         </span>
       ),
       onClick: () => {
-        window.open('https://github.com', '_blank')
+        window.open('https://github.com/your-repo/markdown-table-editor', '_blank')
       },
     },
     {
       key: 'about',
       label: t('header.about'),
       onClick: () => {
-        message.info(t('header.aboutNotImplemented'))
+        setAboutModalVisible(true)
       },
     },
   ]
@@ -274,6 +281,16 @@ const Header: React.FC = () => {
           </Dropdown>
         </Space>
       </div>
+      
+      {/* Modals */}
+      <AboutModal 
+        visible={aboutModalVisible} 
+        onClose={() => setAboutModalVisible(false)} 
+      />
+      <ShortcutsModal 
+        visible={shortcutsModalVisible} 
+        onClose={() => setShortcutsModalVisible(false)} 
+      />
     </AntHeader>
   )
 }

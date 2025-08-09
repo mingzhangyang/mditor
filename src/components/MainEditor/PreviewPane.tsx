@@ -86,7 +86,7 @@ const PreviewPane: React.FC<PreviewPaneProps> = ({ height = 600 }) => {
 
     try {
       if (exportFormat === 'svg') {
-        const svgContent = await ImportExportManager.exportToSVG(tableData, cellStyles)
+        const svgContent = await ImportExportManager.exportToSVG(tableData, cellStyles, settings)
         const blob = new Blob([svgContent], { type: 'image/svg+xml' })
         const url = URL.createObjectURL(blob)
         const a = document.createElement('a')
@@ -98,7 +98,7 @@ const PreviewPane: React.FC<PreviewPaneProps> = ({ height = 600 }) => {
         URL.revokeObjectURL(url)
         message.success('SVG 文件已下载')
       } else {
-        const canvas = await ImportExportManager.exportToPNG(tableData, cellStyles)
+        const canvas = await ImportExportManager.exportToPNG(tableData, cellStyles, settings)
         canvas.toBlob((blob) => {
           if (blob) {
             const url = URL.createObjectURL(blob)
@@ -123,7 +123,7 @@ const PreviewPane: React.FC<PreviewPaneProps> = ({ height = 600 }) => {
   const printTable = useCallback(() => {
     const printWindow = window.open('', '_blank')
     if (printWindow) {
-      const htmlContent = ImportExportManager.exportToHTML(tableData, cellStyles)
+      const htmlContent = ImportExportManager.exportToHTML(tableData, cellStyles, settings)
       printWindow.document.write(`
         <!DOCTYPE html>
         <html>
@@ -149,18 +149,18 @@ const PreviewPane: React.FC<PreviewPaneProps> = ({ height = 600 }) => {
       printWindow.document.close()
       printWindow.print()
     }
-  }, [tableData, cellStyles])
+  }, [tableData, cellStyles, settings])
 
   // 复制表格 HTML
   const copyTableHTML = useCallback(async () => {
     try {
-      const htmlContent = ImportExportManager.exportToHTML(tableData, cellStyles)
+      const htmlContent = ImportExportManager.exportToHTML(tableData, cellStyles, settings)
       await navigator.clipboard.writeText(htmlContent)
       message.success('HTML 代码已复制到剪贴板')
     } catch (error) {
       message.error('复制失败')
     }
-  }, [tableData, cellStyles, ImportExportManager])
+  }, [tableData, cellStyles, settings])
 
   // 获取单元格样式
   const getCellStyle = useCallback((row: number, col: number) => {
@@ -265,7 +265,7 @@ const PreviewPane: React.FC<PreviewPaneProps> = ({ height = 600 }) => {
 
   // 渲染 HTML 预览
   const renderHTMLPreview = useCallback(() => {
-    const htmlContent = ImportExportManager.exportToHTML(tableData, cellStyles)
+    const htmlContent = ImportExportManager.exportToHTML(tableData, cellStyles, settings)
     return (
       <pre style={{
         fontFamily: 'Monaco, Consolas, monospace',

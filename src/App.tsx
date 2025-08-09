@@ -12,7 +12,7 @@ const { Content, Sider } = Layout
 
 const App: React.FC = () => {
   const { message } = AntApp.useApp()
-  const { setLanguage } = useI18n()
+  const { t, setLanguage } = useI18n()
   const {
     sidebarVisible,
     setSidebarVisible,
@@ -31,13 +31,13 @@ const App: React.FC = () => {
       setLanguage(settings.language as any)
     }
     
-    // 设置默认表格数据
+    // Set default table data
     const defaultData = {
-      headers: ['列1', '列2', '列3'],
+      headers: ['A', 'B', 'C'],
       rows: [
-        ['行1列1', '行1列2', '行1列3'],
-        ['行2列1', '行2列2', '行2列3'],
-        ['行3列1', '行3列2', '行3列3'],
+        ['a1', 'b1', 'c1'],
+        ['a2', 'b2', 'c2'],
+        ['a3', 'b3', 'c3'],
       ],
       alignments: ['left', 'center', 'right'] as ('left' | 'center' | 'right')[],
     }
@@ -75,13 +75,13 @@ const App: React.FC = () => {
           
           saveToHistory()
           
-          message.success(`成功导入文件: ${file.name}`)
+          message.success(`${t('files.importSuccess')}: ${file.name}`)
         } else {
-          message.error(result.error || '导入文件失败')
+          message.error(result.error || t('files.importFailed'))
         }
       } catch (error) {
-        console.error('导入文件错误:', error)
-        message.error('导入文件时发生错误')
+        console.error('Import file error:', error)
+        message.error(t('files.importError'))
       }
     }
 

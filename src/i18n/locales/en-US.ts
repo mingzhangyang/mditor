@@ -20,7 +20,9 @@ export const enUS: TranslationKeys = {
     warning: 'Warning',
     info: 'Info',
     unknown: 'Unknown',
-    zoom: 'Zoom'
+    zoom: 'Zoom',
+    close: 'Close',
+    ok: 'OK'
   },
   
   // Header
@@ -45,9 +47,9 @@ export const enUS: TranslationKeys = {
     saveMarkdown: 'Save as Markdown (Ctrl+S)',
     settingsTooltip: 'Settings',
     helpTooltip: 'Help',
-    shortcutsNotImplemented: 'Shortcuts help feature not implemented yet',
-    guideNotImplemented: 'User guide feature not implemented yet',
-    aboutNotImplemented: 'About page feature not implemented yet'
+    shortcutsHelp: 'Keyboard Shortcuts',
+    userGuide: 'User Guide',
+    aboutApp: 'About This App'
   },
   
   // Sidebar
