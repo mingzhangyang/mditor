@@ -1,6 +1,5 @@
 import React from 'react'
 import { Modal, Typography, Divider, Row, Col, Tag } from 'antd'
-import { useI18n } from '@/i18n'
 
 const { Title, Text } = Typography
 
@@ -10,7 +9,6 @@ interface ShortcutsModalProps {
 }
 
 const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => {
-  const { t } = useI18n()
 
   const shortcutCategories = [
     {
@@ -164,8 +162,8 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
         }}>
           <Text strong style={{ color: '#389e0d' }}>💡 Pro Tips:</Text>
           <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20 }}>
-            <li><Text>Hold <Tag size="small">Shift</Tag> while using arrow keys to select ranges</Text></li>
-            <li><Text>Use <Tag size="small">Ctrl+Click</Tag> to select multiple non-adjacent cells</Text></li>
+            <li><Text>Hold <Tag>Shift</Tag> while using arrow keys to select ranges</Text></li>
+            <li><Text>Use <Tag>Ctrl+Click</Tag> to select multiple non-adjacent cells</Text></li>
             <li><Text>Double-click any cell to start editing quickly</Text></li>
             <li><Text>Drag column borders to resize columns visually</Text></li>
           </ul>

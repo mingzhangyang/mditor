@@ -49,7 +49,10 @@ export const enUS: TranslationKeys = {
     helpTooltip: 'Help',
     shortcutsHelp: 'Keyboard Shortcuts',
     userGuide: 'User Guide',
-    aboutApp: 'About This App'
+    aboutApp: 'About This App',
+    shortcutsNotImplemented: 'Shortcuts not implemented',
+    guideNotImplemented: 'Guide not implemented',
+    aboutNotImplemented: 'About not implemented'
   },
   
   // Sidebar

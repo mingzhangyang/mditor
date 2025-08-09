@@ -1,12 +1,10 @@
 import React from 'react'
-import { Tabs, Card, Space, Typography, List, Button, Tag, Tooltip } from 'antd'
+import { Tabs, Card, Space, Typography, Tag, Tooltip } from 'antd'
 import {
   HistoryOutlined,
   BgColorsOutlined,
   FileTextOutlined,
   ClockCircleOutlined,
-  DeleteOutlined,
-  ReloadOutlined,
 } from '@ant-design/icons'
 import { useTableStore } from '@/store'
 import { useI18n } from '@/i18n'
@@ -15,7 +13,7 @@ import HistoryPanel from './HistoryPanel'
 
 import FilePanel from './FilePanel'
 
-const { Title, Text } = Typography
+const { Text } = Typography
 
 const Sidebar: React.FC = () => {
   const { t } = useI18n()

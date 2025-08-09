@@ -3,18 +3,16 @@ import {
   Card,
   Switch,
   Select,
-  Slider,
+  InputNumber,
   Space,
   Typography,
-  Divider,
   Button,
-  InputNumber,
   Radio,
   Tooltip,
   App,
+  Slider,
 } from 'antd'
 import {
-  SettingOutlined,
   MoonOutlined,
   SunOutlined,
   SaveOutlined,
@@ -25,7 +23,7 @@ import {
 import { useTableStore } from '@/store'
 import { useI18n, languages } from '@/i18n'
 
-const { Title, Text } = Typography
+const { Text } = Typography
 const { Option } = Select
 
 const SettingsPanel: React.FC = () => {
@@ -199,7 +197,7 @@ const SettingsPanel: React.FC = () => {
             }}>{t('settings.fontSize')}</Text>
             <Slider
               value={settings.fontSize}
-              onChange={(value) => updateSettings({ fontSize: value })}
+              onChange={(value: number) => updateSettings({ fontSize: value })}
               min={12}
               max={20}
               step={1}

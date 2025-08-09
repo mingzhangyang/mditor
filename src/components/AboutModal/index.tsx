@@ -1,9 +1,9 @@
 import React from 'react'
 import { Modal, Typography, Space, Divider, Tag, Button } from 'antd'
-import { GithubOutlined, HeartOutlined, StarOutlined } from '@ant-design/icons'
+import { GithubOutlined, HeartOutlined } from '@ant-design/icons'
 import { useI18n } from '@/i18n'
 
-const { Title, Paragraph, Text, Link } = Typography
+const { Title, Paragraph, Text } = Typography
 
 interface AboutModalProps {
   visible: boolean

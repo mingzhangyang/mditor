@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Button, Space, Tooltip } from 'antd'
+import { Button, Space, Tooltip } from 'antd'
 import {
   TableOutlined,
   CodeOutlined,
@@ -8,13 +8,10 @@ import {
   SplitCellsOutlined,
 } from '@ant-design/icons'
 import { useI18n } from '@/i18n'
-import { useTableStore } from '@/store'
 import TableEditor from './TableEditor'
 import MarkdownEditor from './MarkdownEditor'
 import PreviewPane from './PreviewPane'
 import Toolbar from './Toolbar'
-
-const { Content } = Layout
 
 type ViewMode = 'table' | 'markdown' | 'preview' | 'split'
 
@@ -22,7 +19,6 @@ const MainEditor: React.FC = () => {
   const { t } = useI18n()
   const [viewMode, setViewMode] = useState<ViewMode>('markdown')
   const [splitDirection, setSplitDirection] = useState<'horizontal' | 'vertical'>('horizontal')
-  const { settings } = useTableStore()
 
   // 响应式处理
   useEffect(() => {

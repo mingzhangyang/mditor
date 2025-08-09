@@ -49,7 +49,10 @@ export const zhCN: TranslationKeys = {
     helpTooltip: '帮助',
     shortcutsHelp: '快捷键帮助',
     userGuide: '使用指南',
-    aboutApp: '关于应用'
+    aboutApp: '关于应用',
+    shortcutsNotImplemented: '快捷键功能未实现',
+    guideNotImplemented: '使用指南未实现',
+    aboutNotImplemented: '关于页面未实现'
   },
   
   // 侧边栏

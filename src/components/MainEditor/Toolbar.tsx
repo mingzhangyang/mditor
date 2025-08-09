@@ -6,23 +6,13 @@ import {
   AlignLeftOutlined,
   AlignCenterOutlined,
   AlignRightOutlined,
-  BoldOutlined,
-  ItalicOutlined,
-  BgColorsOutlined,
-  BorderOutlined,
   CopyOutlined,
-  ScissorOutlined,
   SnippetsOutlined,
-  MergeCellsOutlined,
-  SplitCellsOutlined,
   SortAscendingOutlined,
   SortDescendingOutlined,
-  FilterOutlined,
-  SearchOutlined,
   MoreOutlined,
 } from '@ant-design/icons'
 import { useTableStore } from '@/store'
-import { MarkdownTableParser } from '@/utils/markdown'
 import { ImportExportManager } from '@/utils/importExport'
 import type { MenuProps } from 'antd'
 
@@ -34,10 +24,7 @@ const Toolbar: React.FC = () => {
     setMarkdownContent,
     selectedCells,
     saveToHistory,
-    updateCellStyle,
   } = useTableStore()
-
-  const parser = new MarkdownTableParser()
 
   // 添加行
   const addRow = () => {

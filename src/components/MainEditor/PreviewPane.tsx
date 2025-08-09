@@ -12,7 +12,7 @@ import {
 import { useI18n } from '@/i18n'
 import { useTableStore } from '@/store'
 import { ImportExportManager } from '@/utils/importExport'
-import type { TableData } from '@/types'
+
 
 const { Option } = Select
 

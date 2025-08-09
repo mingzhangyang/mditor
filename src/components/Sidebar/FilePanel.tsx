@@ -16,13 +16,11 @@ import {
 } from 'antd'
 import {
   FileTextOutlined,
-  FolderOpenOutlined,
   SaveOutlined,
   DeleteOutlined,
   DownloadOutlined,
   UploadOutlined,
   PlusOutlined,
-  EditOutlined,
   CopyOutlined,
   EyeOutlined,
 } from '@ant-design/icons'
@@ -31,7 +29,7 @@ import { ImportExportManager } from '@/utils/importExport'
 import { useI18n } from '@/i18n'
 import type { FileInfo } from '@/types'
 
-const { Text, Title } = Typography
+const { Text } = Typography
 const { Search } = Input
 const { Dragger } = Upload
 

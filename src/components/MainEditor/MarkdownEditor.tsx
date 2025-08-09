@@ -4,7 +4,6 @@ import { EyeOutlined, EditOutlined, CopyOutlined, DownloadOutlined } from '@ant-
 import { useI18n } from '@/i18n'
 import { useTableStore } from '@/store'
 import { MarkdownTableParser } from '@/utils/markdown'
-import { ImportExportManager } from '@/utils/importExport'
 
 const { TextArea } = Input
 

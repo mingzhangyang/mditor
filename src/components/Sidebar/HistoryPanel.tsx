@@ -1,41 +1,26 @@
 import React from 'react'
 import {
-  List,
   Button,
   Typography,
   Space,
-  Tag,
-  Tooltip,
   Empty,
   Card,
   Popconfirm,
   App,
 } from 'antd'
 import {
-  HistoryOutlined,
   UndoOutlined,
   RedoOutlined,
   DeleteOutlined,
-  ReloadOutlined,
-  ClockCircleOutlined,
-  EditOutlined,
-  ImportOutlined,
-  ExportOutlined,
-  PlusOutlined,
-  MinusOutlined,
 } from '@ant-design/icons'
 import { useTableStore } from '@/store'
-import { ImportExportManager } from '@/utils/importExport'
-import type { TableHistory } from '@/types'
 
-const { Text, Title } = Typography
+const { Text } = Typography
 
 const HistoryPanel: React.FC = () => {
   const { message } = App.useApp()
   const {
     history,
-    setTableData,
-    setMarkdownContent,
     undo,
     redo,
   } = useTableStore()

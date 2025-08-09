@@ -4,7 +4,6 @@ import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 /**
  * 导入导出管理器

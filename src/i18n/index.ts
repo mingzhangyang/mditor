@@ -24,6 +24,9 @@ export interface TranslationKeys {
     warning: string
     info: string
     unknown: string
+    zoom: string
+    close: string
+    ok: string
   }
   
   // 头部
@@ -48,6 +51,9 @@ export interface TranslationKeys {
     saveMarkdown: string
     settingsTooltip: string
     helpTooltip: string
+    shortcutsHelp: string
+    userGuide: string
+    aboutApp: string
     shortcutsNotImplemented: string
     guideNotImplemented: string
     aboutNotImplemented: string
@@ -169,7 +175,7 @@ export interface TranslationKeys {
     placeholder: string
   }
   
-  // 视图
+  // 视图模式
   view: {
     table: string
     markdown: string
@@ -178,6 +184,8 @@ export interface TranslationKeys {
     tableEditor: string
     markdownEditor: string
     previewPane: string
+    markdownPreview: string
+    htmlPreview: string
   }
   
   // 导出格式

@@ -3,11 +3,8 @@ import {
   Card,
   ColorPicker,
   Select,
-  Slider,
-  Switch,
   Space,
   Typography,
-  Divider,
   Button,
   Row,
   Col,
@@ -28,9 +25,10 @@ import {
 } from '@ant-design/icons'
 import { useI18n } from '@/i18n'
 import { useTableStore } from '@/store'
+import type { CellStyle } from '@/types'
 import type { Color } from 'antd/es/color-picker'
 
-const { Title, Text } = Typography
+const { Text } = Typography
 const { Option } = Select
 
 const StylePanel: React.FC = () => {
@@ -42,17 +40,17 @@ const StylePanel: React.FC = () => {
     clearCellStyles,
   } = useTableStore()
 
-  const [previewStyle, setPreviewStyle] = useState({
+  const [previewStyle, setPreviewStyle] = useState<CellStyle>({
     backgroundColor: 'var(--bg-color)',
     color: 'var(--text-color)',
     fontSize: 14,
-    fontWeight: 'normal' as const,
-    fontStyle: 'normal' as const,
-    textDecoration: 'none' as const,
-    textAlign: 'left' as const,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    textDecoration: 'none',
+    textAlign: 'left',
     borderColor: 'var(--border-color)',
     borderWidth: 1,
-    borderStyle: 'solid' as const,
+    borderStyle: 'solid',
     padding: 8,
   })
 
@@ -68,7 +66,7 @@ const StylePanel: React.FC = () => {
   const currentStyle = getCurrentStyle()
 
   // 应用样式到选中的单元格
-  const applyStyle = (styleUpdate: Partial<typeof previewStyle>) => {
+  const applyStyle = (styleUpdate: Partial<CellStyle>) => {
     if (selectedCells.length === 0) {
       setPreviewStyle(prev => ({ ...prev, ...styleUpdate }))
       return
@@ -231,9 +229,10 @@ const StylePanel: React.FC = () => {
                   size="small"
                   icon={<BoldOutlined />}
                   type={currentStyle.fontWeight === 'bold' ? 'primary' : 'default'}
-                  onClick={() => applyStyle({ 
-                    fontWeight: currentStyle.fontWeight === 'bold' ? 'normal' : 'bold' 
-                  })}
+                  onClick={() => {
+                    const newWeight = currentStyle.fontWeight === 'bold' ? 'normal' : 'bold'
+                    applyStyle({ fontWeight: newWeight })
+                  }}
                 />
               </Tooltip>
               
@@ -242,9 +241,10 @@ const StylePanel: React.FC = () => {
                   size="small"
                   icon={<ItalicOutlined />}
                   type={currentStyle.fontStyle === 'italic' ? 'primary' : 'default'}
-                  onClick={() => applyStyle({ 
-                    fontStyle: currentStyle.fontStyle === 'italic' ? 'normal' : 'italic' 
-                  })}
+                  onClick={() => {
+                    const newStyle = currentStyle.fontStyle === 'italic' ? 'normal' : 'italic'
+                    applyStyle({ fontStyle: newStyle })
+                  }}
                 />
               </Tooltip>
               
@@ -253,9 +253,10 @@ const StylePanel: React.FC = () => {
                   size="small"
                   icon={<UnderlineOutlined />}
                   type={currentStyle.textDecoration === 'underline' ? 'primary' : 'default'}
-                  onClick={() => applyStyle({ 
-                    textDecoration: currentStyle.textDecoration === 'underline' ? 'none' : 'underline' 
-                  })}
+                  onClick={() => {
+                    const newDecoration = currentStyle.textDecoration === 'underline' ? 'none' : 'underline'
+                    applyStyle({ textDecoration: newDecoration })
+                  }}
                 />
               </Tooltip>
             </Space>
@@ -271,7 +272,9 @@ const StylePanel: React.FC = () => {
               size="small"
               icon={<AlignLeftOutlined />}
               type={currentStyle.textAlign === 'left' ? 'primary' : 'default'}
-              onClick={() => applyStyle({ textAlign: 'left' })}
+              onClick={() => {
+                applyStyle({ textAlign: 'left' })
+              }}
             />
           </Tooltip>
           
@@ -280,7 +283,9 @@ const StylePanel: React.FC = () => {
               size="small"
               icon={<AlignCenterOutlined />}
               type={currentStyle.textAlign === 'center' ? 'primary' : 'default'}
-              onClick={() => applyStyle({ textAlign: 'center' })}
+              onClick={() => {
+                applyStyle({ textAlign: 'center' })
+              }}
             />
           </Tooltip>
           
@@ -289,7 +294,9 @@ const StylePanel: React.FC = () => {
               size="small"
               icon={<AlignRightOutlined />}
               type={currentStyle.textAlign === 'right' ? 'primary' : 'default'}
-              onClick={() => applyStyle({ textAlign: 'right' })}
+              onClick={() => {
+                applyStyle({ textAlign: 'right' })
+              }}
             />
           </Tooltip>
         </Space>
@@ -328,7 +335,9 @@ const StylePanel: React.FC = () => {
             <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 8 }}>{t('style.borderType')}</Text>
             <Select
               value={currentStyle.borderStyle}
-              onChange={(value) => applyStyle({ borderStyle: value })}
+              onChange={(value: 'solid' | 'dashed' | 'dotted' | 'double' | 'none') => {
+                applyStyle({ borderStyle: value })
+              }}
               size="small"
               style={{ width: '100%' }}
             >
