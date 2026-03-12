@@ -1,0 +1,7 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">Mditor Favicon</title>
+  <rect width="64" height="64" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M12 49L20 16L32 35L44 16L52 49" stroke="#2563EB" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16 32H48" stroke="#2563EB" stroke-width="6" stroke-linecap="round"/>
+  <path d="M32 35V49" stroke="#2563EB" stroke-width="6" stroke-linecap="round"/>
+</svg>

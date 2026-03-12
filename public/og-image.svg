@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Mditor social preview</title>
+  <desc id="desc">Mditor brand mark and application preview card.</desc>
+  <defs>
+    <linearGradient id="og-bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#F8FBFF"/>
+      <stop offset="1" stop-color="#EEF4FF"/>
+    </linearGradient>
+    <linearGradient id="og-accent" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#DBEAFE"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#og-bg)"/>
+  <circle cx="1048" cy="94" r="158" fill="#BFDBFE" opacity="0.28"/>
+  <circle cx="116" cy="548" r="188" fill="#E0ECFF" opacity="0.78"/>
+  <rect x="68" y="58" width="1064" height="514" rx="36" fill="rgba(255,255,255,0.82)" stroke="#D7E3F4" stroke-width="3"/>
+  <rect x="104" y="94" width="132" height="132" rx="28" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M126 192L143 120L170 162L197 120L214 192" stroke="#2563EB" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M135 158H205" stroke="#2563EB" stroke-width="12" stroke-linecap="round"/>
+  <path d="M170 162V192" stroke="#2563EB" stroke-width="12" stroke-linecap="round"/>
+  <text x="268" y="150" fill="#162033" font-family="Fira Sans, Segoe UI, sans-serif" font-size="78" font-weight="800" letter-spacing="-0.04em">Mditor</text>
+  <text x="270" y="194" fill="#5B6B84" font-family="Fira Sans, Segoe UI, sans-serif" font-size="22" font-weight="700" letter-spacing="0.18em">VISUAL MARKDOWN TABLE WORKSPACE</text>
+  <g transform="translate(110 278)">
+    <rect width="394" height="218" rx="28" fill="#0F172A"/>
+    <g fill="#CBD5E1">
+      <rect x="34" y="36" width="228" height="16" rx="8"/>
+      <rect x="34" y="68" width="176" height="16" rx="8"/>
+      <rect x="34" y="100" width="246" height="16" rx="8"/>
+      <rect x="34" y="132" width="196" height="16" rx="8"/>
+      <rect x="34" y="164" width="158" height="16" rx="8"/>
+    </g>
+  </g>
+  <g transform="translate(556 252)">
+    <rect width="538" height="270" rx="30" fill="#FFFFFF" stroke="#D7E3F4" stroke-width="3"/>
+    <rect x="28" y="28" width="482" height="46" rx="14" fill="url(#og-accent)"/>
+    <rect x="28" y="94" width="482" height="144" rx="18" fill="#F8FAFC" stroke="#E2E8F0"/>
+    <g fill="#2563EB">
+      <rect x="54" y="46" width="122" height="12" rx="6"/>
+      <rect x="204" y="46" width="112" height="12" rx="6" opacity=".82"/>
+      <rect x="344" y="46" width="90" height="12" rx="6" opacity=".56"/>
+    </g>
+    <g>
+      <rect x="54" y="114" width="128" height="26" rx="8" fill="#DBEAFE"/>
+      <rect x="184" y="114" width="128" height="26" rx="8" fill="#DBEAFE"/>
+      <rect x="314" y="114" width="128" height="26" rx="8" fill="#DBEAFE"/>
+      <rect x="54" y="150" width="128" height="56" rx="10" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <rect x="184" y="150" width="128" height="56" rx="10" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <rect x="314" y="150" width="128" height="56" rx="10" fill="#FFFFFF" stroke="#E2E8F0"/>
+      <rect x="444" y="114" width="38" height="92" rx="10" fill="#EFF6FF"/>
+    </g>
+  </g>
+  <text x="110" y="548" fill="#334155" font-family="Fira Sans, Segoe UI, sans-serif" font-size="30" font-weight="600">
+    Create, edit, preview, and export Markdown tables with a clean visual workflow.
+  </text>
+</svg>

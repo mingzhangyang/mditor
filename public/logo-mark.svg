@@ -1,0 +1,8 @@
+<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Mditor Logo Mark</title>
+  <desc id="desc">Abstract M-shaped table mark for Mditor.</desc>
+  <rect width="120" height="120" rx="24" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <path d="M20 90L35 30L60 65L85 30L100 90" stroke="#2563EB" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M27.5 60H92.5" stroke="#2563EB" stroke-width="10" stroke-linecap="round"/>
+  <path d="M60 65V90" stroke="#2563EB" stroke-width="10" stroke-linecap="round"/>
+</svg>
