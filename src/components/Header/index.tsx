@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Button, Space, Dropdown, Typography, App, Tag } from 'antd'
+import { Layout, Button, Space, Dropdown, App } from 'antd'
 import {
   MenuOutlined,
   SaveOutlined,
@@ -19,8 +19,6 @@ import ShortcutsModal from '@/components/ShortcutsModal'
 import type { MenuProps } from 'antd'
 
 const { Header: AntHeader } = Layout
-const { Title } = Typography
-
 const Header: React.FC = () => {
   const { message } = App.useApp()
   const { t } = useI18n()
@@ -214,20 +212,14 @@ const Header: React.FC = () => {
             className="app-icon-button"
             aria-label={t('header.toggleSidebar')}
           />
-          <div className="app-brand">
-            <div className="app-brand-mark" aria-hidden="true">
-              <span />
-            </div>
-            <div className="app-brand-copy">
-              <Title level={4} style={{ margin: 0 }}>
-                {t('header.title')}
-              </Title>
-              <span className="app-brand-subtitle">Visual markdown workspace</span>
-            </div>
-            <a href="https://orangely.xyz" target="_blank" rel="noreferrer">
-              <Tag bordered={false} className="app-brand-tag">Orangely</Tag>
-            </a>
-          </div>
+          <a
+            href="/"
+            className="app-brand"
+            aria-label={t('header.title')}
+            title={t('header.title')}
+          >
+            <img src="/logo.svg" alt={t('header.title')} className="app-brand-logo" />
+          </a>
         </div>
 
         {/* 中间工具栏 */}
