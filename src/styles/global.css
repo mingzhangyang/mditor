@@ -187,20 +187,21 @@ code {
 .app-brand {
   display: inline-flex;
   align-items: center;
-  flex: 0 1 280px;
-  min-width: 148px;
+  gap: 12px;
+  flex: 0 1 360px;
+  min-width: 188px;
   overflow: hidden;
   text-decoration: none;
 }
 
 .app-brand-logo {
   display: block;
-  width: 100%;
+  width: 48px;
   height: auto;
-  max-height: 56px;
+  max-height: 48px;
   object-fit: contain;
-  object-position: left center;
-  min-width: 0;
+  object-position: center;
+  flex: 0 0 auto;
 }
 
 .app-brand:hover .app-brand-logo {
@@ -216,6 +217,37 @@ code {
 .app-brand-logo img,
 .app-brand-logo svg {
   display: block;
+}
+
+.app-brand-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.app-brand-title {
+  color: var(--text-color);
+  font-size: 24px;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-brand-subtitle {
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-toolbar,
@@ -1212,7 +1244,8 @@ code {
   }
 
   .app-brand-logo {
-    max-width: 220px;
+    width: 42px;
+    max-width: none;
   }
 }
 
@@ -1234,7 +1267,16 @@ code {
   }
 
   .app-brand-logo {
-    max-width: 156px;
+    width: 38px;
+    max-width: none;
+  }
+
+  .app-brand-title {
+    font-size: 18px;
+  }
+
+  .app-brand-subtitle {
+    display: none;
   }
 
   .shortcut-card {

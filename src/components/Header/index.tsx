@@ -219,6 +219,10 @@ const Header: React.FC = () => {
             title={t('header.title')}
           >
             <img src="/logo.svg" alt={t('header.title')} className="app-brand-logo" />
+            <div className="app-brand-copy">
+              <span className="app-brand-title">{t('header.title')}</span>
+              <span className="app-brand-subtitle">Visual markdown workspace</span>
+            </div>
           </a>
         </div>
 
