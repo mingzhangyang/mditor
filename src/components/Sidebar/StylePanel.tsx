@@ -111,9 +111,9 @@ const StylePanel: React.FC = () => {
   ]
 
   return (
-    <div style={{ padding: 16, height: '100%', overflow: 'auto' }}>
+    <div className="panel-scroll">
       {/* 选择状态提示 */}
-      <Card size="small" style={{ marginBottom: 16 }}>
+      <Card size="small" className="panel-card">
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <Text type="secondary">
             {selectedCells.length === 0 
@@ -135,7 +135,7 @@ const StylePanel: React.FC = () => {
       </Card>
 
       {/* 背景颜色 */}
-      <Card size="small" title={<><BgColorsOutlined /> {t('style.backgroundColor')}</>} style={{ marginBottom: 16 }}>
+      <Card size="small" title={<><BgColorsOutlined /> {t('style.backgroundColor')}</>} className="panel-card">
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <ColorPicker
             value={currentStyle.backgroundColor}
@@ -153,17 +153,13 @@ const StylePanel: React.FC = () => {
           />
           
           {/* 快速颜色选择 */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: 4 }}>
+          <div className="color-grid">
             {presetColors.slice(0, 16).map(color => (
               <div
                 key={color}
+                className="color-swatch"
                 style={{
-                  width: 24,
-                  height: 24,
                   backgroundColor: color,
-                  border: '1px solid var(--border-color)',
-                  borderRadius: 4,
-                  cursor: 'pointer',
                   boxShadow: currentStyle.backgroundColor === color ? '0 0 0 2px var(--primary-color)' : 'none',
                 }}
                 onClick={() => applyStyle({ backgroundColor: color })}
@@ -174,7 +170,7 @@ const StylePanel: React.FC = () => {
       </Card>
 
       {/* 文字颜色 */}
-      <Card size="small" title={<><FontColorsOutlined /> {t('style.textColor')}</>} style={{ marginBottom: 16 }}>
+      <Card size="small" title={<><FontColorsOutlined /> {t('style.textColor')}</>} className="panel-card">
         <ColorPicker
           value={currentStyle.color}
           onChange={(color: Color) => {
@@ -192,7 +188,7 @@ const StylePanel: React.FC = () => {
       </Card>
 
       {/* 字体样式 */}
-      <Card size="small" title={t('style.fontStyle')} style={{ marginBottom: 16 }}>
+      <Card size="small" title={t('style.fontStyle')} className="panel-card">
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <Row gutter={8}>
             <Col span={12}>
@@ -265,7 +261,7 @@ const StylePanel: React.FC = () => {
       </Card>
 
       {/* 对齐方式 */}
-      <Card size="small" title={t('style.alignment')} style={{ marginBottom: 16 }}>
+      <Card size="small" title={t('style.alignment')} className="panel-card">
         <Space>
           <Tooltip title={t('style.leftAlign')}>
             <Button
@@ -303,7 +299,7 @@ const StylePanel: React.FC = () => {
       </Card>
 
       {/* 边框样式 */}
-      <Card size="small" title={<><BorderOutlined /> {t('style.borderStyle')}</>} style={{ marginBottom: 16 }}>
+      <Card size="small" title={<><BorderOutlined /> {t('style.borderStyle')}</>} className="panel-card">
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <Row gutter={8}>
             <Col span={12}>
@@ -352,7 +348,7 @@ const StylePanel: React.FC = () => {
       </Card>
 
       {/* 样式预览 */}
-      <Card size="small" title={t('style.stylePreview')} style={{ marginBottom: 16 }}>
+      <Card size="small" title={t('style.stylePreview')} className="panel-card">
         <div
           style={{
             ...currentStyle,
@@ -370,7 +366,7 @@ const StylePanel: React.FC = () => {
       </Card>
 
       {/* 批量操作 */}
-      <Card size="small" title="批量操作">
+      <Card size="small" title="批量操作" className="panel-card">
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <Button 
             size="small" 

@@ -1,5 +1,14 @@
 import React from 'react'
 import { Modal, Typography, Divider, Row, Col, Tag } from 'antd'
+import {
+  AppstoreOutlined,
+  BgColorsOutlined,
+  EyeOutlined,
+  FileTextOutlined,
+  FormOutlined,
+  SettingOutlined,
+  TableOutlined,
+} from '@ant-design/icons'
 import { useI18n } from '@/i18n'
 
 const { Title, Text } = Typography
@@ -14,7 +23,8 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
 
   const shortcutCategories = [
     {
-      title: `📁 ${t('shortcuts.fileOperations')}`,
+      title: t('shortcuts.fileOperations'),
+      icon: <FileTextOutlined />,
       shortcuts: [
         { key: 'Ctrl+O', description: t('shortcuts.openImportFile') },
         { key: 'Ctrl+S', description: t('shortcuts.saveAsMarkdown') },
@@ -23,7 +33,8 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
       ]
     },
     {
-      title: `✏️ ${t('shortcuts.editing')}`,
+      title: t('shortcuts.editing'),
+      icon: <FormOutlined />,
       shortcuts: [
         { key: 'Ctrl+Z', description: t('shortcuts.undoLastAction') },
         { key: 'Ctrl+Shift+Z', description: t('shortcuts.redoLastAction') },
@@ -33,7 +44,8 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
       ]
     },
     {
-      title: `🧭 ${t('shortcuts.navigation')}`,
+      title: t('shortcuts.navigation'),
+      icon: <AppstoreOutlined />,
       shortcuts: [
         { key: 'Tab', description: t('shortcuts.moveToNextCell') },
         { key: 'Shift+Tab', description: t('shortcuts.moveToPreviousCell') },
@@ -45,7 +57,8 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
       ]
     },
     {
-      title: `📋 ${t('shortcuts.selectionCopyPaste')}`,
+      title: t('shortcuts.selectionCopyPaste'),
+      icon: <FileTextOutlined />,
       shortcuts: [
         { key: 'Ctrl+A', description: t('shortcuts.selectAllCells') },
         { key: 'Ctrl+Click', description: t('shortcuts.multiSelectCells') },
@@ -56,7 +69,8 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
       ]
     },
     {
-      title: `🏗️ ${t('shortcuts.tableStructure')}`,
+      title: t('shortcuts.tableStructure'),
+      icon: <TableOutlined />,
       shortcuts: [
         { key: 'Ctrl+Shift+R', description: t('shortcuts.addRowAbove') },
         { key: 'Ctrl+R', description: t('shortcuts.addRowBelow') },
@@ -67,7 +81,8 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
       ]
     },
     {
-      title: `🎨 ${t('shortcuts.formatting')}`,
+      title: t('shortcuts.formatting'),
+      icon: <BgColorsOutlined />,
       shortcuts: [
         { key: 'Ctrl+B', description: t('shortcuts.toggleBold') },
         { key: 'Ctrl+I', description: t('shortcuts.toggleItalic') },
@@ -78,7 +93,8 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
       ]
     },
     {
-      title: `🔧 ${t('shortcuts.interface')}`,
+      title: t('shortcuts.interface'),
+      icon: <SettingOutlined />,
       shortcuts: [
         { key: 'F11', description: t('shortcuts.toggleSidebar') },
         { key: 'Ctrl+,', description: t('shortcuts.openSettings') },
@@ -88,7 +104,8 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
       ]
     },
     {
-      title: `👁️ ${t('shortcuts.view')}`,
+      title: t('shortcuts.view'),
+      icon: <EyeOutlined />,
       shortcuts: [
         { key: 'Ctrl+1', description: t('shortcuts.tableView') },
         { key: 'Ctrl+2', description: t('shortcuts.markdownView') },
@@ -104,9 +121,12 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
   return (
     <Modal
       title={
-        <div style={{ textAlign: 'center' }}>
-          <Title level={3} style={{ margin: 0 }}>⌨️ {t('shortcuts.title')}</Title>
-          <Text type="secondary">{t('shortcuts.subtitle')}</Text>
+        <div className="app-modal-hero app-modal-hero-compact">
+          <div className="app-modal-hero-mark" aria-hidden="true">
+            <AppstoreOutlined />
+          </div>
+          <Title level={3} className="app-modal-title">{t('shortcuts.title')}</Title>
+          <Text type="secondary" className="app-modal-subtitle">{t('shortcuts.subtitle')}</Text>
         </div>
       }
       open={visible}
@@ -114,40 +134,24 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
       footer={null}
       width={1000}
       centered
+      className="app-modal app-modal-shortcuts"
       styles={{
         body: { maxHeight: '70vh', overflowY: 'auto' },
         mask: { backgroundColor: 'rgba(0, 0, 0, 0.3)' }
       }}
     >
-      <div style={{ padding: '16px 0' }}>
+      <div className="app-modal-body">
         {shortcutCategories.map((category, categoryIndex) => (
-          <div key={categoryIndex} style={{ marginBottom: 32 }}>
-            <Title level={4} style={{ marginBottom: 16, color: 'var(--primary-color)' }}>
-              {category.title}
+          <div key={categoryIndex} className="app-modal-section">
+            <Title level={4} className="app-modal-section-title">
+              {category.icon} {category.title}
             </Title>
             <Row gutter={[16, 12]}>
               {category.shortcuts.map((shortcut, index) => (
                 <Col span={12} key={index}>
-                  <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center',
-                    padding: '8px 12px',
-                    backgroundColor: 'var(--surface-color)',
-                    borderRadius: 6,
-                    border: '1px solid var(--border-color)'
-                  }}>
+                  <div className="shortcut-card">
                     <Text style={{ flex: 1 }}>{shortcut.description}</Text>
-                    <Tag 
-                      style={{ 
-                        fontFamily: 'monospace', 
-                        fontSize: 12,
-                        marginLeft: 8,
-                        backgroundColor: 'var(--bg-color)',
-                        border: '1px solid var(--border-color)',
-                        color: 'var(--text-secondary)'
-                      }}
-                    >
+                    <Tag className="shortcut-key-tag">
                       {shortcut.key}
                     </Tag>
                   </div>
@@ -158,15 +162,9 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ visible, onClose }) => 
           </div>
         ))}
         
-        <div style={{ 
-          marginTop: 24, 
-          padding: 16, 
-          backgroundColor: 'var(--surface-color)', 
-          border: '1px solid var(--border-color)',
-          borderRadius: 6 
-        }}>
-          <Text strong style={{ color: 'var(--success-color)' }}>💡 {t('shortcuts.proTips')}:</Text>
-          <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20 }}>
+        <div className="info-card">
+          <Text strong style={{ color: 'var(--success-color)' }}>{t('shortcuts.proTips')}:</Text>
+          <ul className="modal-list">
             <li><Text>{t('shortcuts.tip1')} <Tag>Shift</Tag> {t('shortcuts.tip1Suffix')}</Text></li>
             <li><Text>{t('shortcuts.tip2')} <Tag>Ctrl+Click</Tag> {t('shortcuts.tip2Suffix')}</Text></li>
             <li><Text>{t('shortcuts.tip3')}</Text></li>

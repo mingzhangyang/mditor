@@ -66,32 +66,32 @@ const Sidebar: React.FC = () => {
   ]
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div className="sidebar-shell">
       {/* 表格信息概览 */}
       <Card 
         size="small" 
-        style={{ margin: 16, marginBottom: 8 }}
+        className="sidebar-summary-card"
         title={
-          <Space>
+          <Space className="sidebar-card-title">
             <FileTextOutlined />
             <span>{t('sidebar.tableInfo')}</span>
           </Space>
         }
       >
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div className="sidebar-stat-row">
             <Text type="secondary">{t('sidebar.rows')}:</Text>
             <Text strong>{stats.rows}</Text>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div className="sidebar-stat-row">
             <Text type="secondary">{t('sidebar.columns')}:</Text>
             <Text strong>{stats.columns}</Text>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div className="sidebar-stat-row">
             <Text type="secondary">{t('sidebar.cells')}:</Text>
             <Text strong>{stats.cells}</Text>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="sidebar-stat-row sidebar-stat-row-last">
             <Text type="secondary">{t('sidebar.lastModified')}:</Text>
             <Tooltip title={stats.lastModified}>
               <Text style={{ fontSize: 12, maxWidth: 120 }} ellipsis>
@@ -104,13 +104,13 @@ const Sidebar: React.FC = () => {
       </Card>
 
       {/* 标签页内容 */}
-      <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+      <div className="sidebar-tabs-shell">
         <Tabs
           activeKey={sidebarActiveTab}
           onChange={setSidebarActiveTab}
           items={tabItems}
           size="small"
-          style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+          className="sidebar-tabs"
           tabBarStyle={{ 
             margin: '0 16px',
             paddingTop: 8,

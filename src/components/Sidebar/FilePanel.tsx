@@ -240,9 +240,9 @@ const FilePanel: React.FC = () => {
   }
 
   return (
-    <div style={{ padding: 16, height: '100%', overflow: 'auto' }}>
+    <div className="panel-scroll">
       {/* 文件操作 */}
-      <Card size="small" style={{ marginBottom: 16 }}>
+      <Card size="small" className="panel-card">
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <Space style={{ width: '100%', justifyContent: 'space-between' }}>
             <Button
@@ -275,7 +275,7 @@ const FilePanel: React.FC = () => {
       </Card>
 
       {/* 文件上传 */}
-      <Card size="small" title={t('files.importFile')} style={{ marginBottom: 16 }}>
+      <Card size="small" title={t('files.importFile')} className="panel-card">
         <Dragger
           accept=".md,.csv,.xlsx,.xls,.json"
           beforeUpload={handleFileUpload}
@@ -293,7 +293,7 @@ const FilePanel: React.FC = () => {
       </Card>
 
       {/* 文件列表 */}
-      <Card size="small" title={`${t('files.fileList')} (${filteredFiles.length})`}>
+      <Card size="small" title={`${t('files.fileList')} (${filteredFiles.length})`} className="panel-card">
         {filteredFiles.length === 0 ? (
           <Empty
             image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -309,14 +309,7 @@ const FilePanel: React.FC = () => {
               
               return (
                 <List.Item
-                  style={{
-                    padding: '8px 12px',
-                    backgroundColor: isCurrent ? 'var(--hover-bg)' : 'var(--bg-color)',
-                    border: isCurrent ? '1px solid var(--primary-color)' : '1px solid var(--border-color)',
-                    borderRadius: 6,
-                    marginBottom: 8,
-                    cursor: 'pointer',
-                  }}
+                  className={`file-list-item${isCurrent ? ' is-current' : ''}`}
                   onClick={() => handleOpenFile(file)}
                 >
                   <div style={{ width: '100%' }}>

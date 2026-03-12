@@ -340,9 +340,9 @@ const Toolbar: React.FC = () => {
   ]
 
   return (
-    <Space size="small" wrap>
+    <Space size="small" wrap className="toolbar">
       {/* 行列操作 */}
-      <Space.Compact>
+      <Space.Compact className="toolbar-group">
         <Tooltip title="添加行">
           <Button
             size="small"
@@ -361,7 +361,7 @@ const Toolbar: React.FC = () => {
         </Tooltip>
       </Space.Compact>
 
-      <Space.Compact>
+      <Space.Compact className="toolbar-group">
         <Tooltip title="添加列">
           <Button
             size="small"
@@ -381,7 +381,7 @@ const Toolbar: React.FC = () => {
       </Space.Compact>
 
       {/* 对齐方式 */}
-      <Space.Compact>
+      <Space.Compact className="toolbar-group">
         <Tooltip title="左对齐">
           <Button
             size="small"
@@ -411,7 +411,7 @@ const Toolbar: React.FC = () => {
       </Space.Compact>
 
       {/* 复制粘贴 */}
-      <Space.Compact>
+      <Space.Compact className="toolbar-group">
         <Tooltip title="复制 (Ctrl+C)">
           <Button
             size="small"
@@ -431,7 +431,7 @@ const Toolbar: React.FC = () => {
       </Space.Compact>
 
       {/* 排序 */}
-      <Space.Compact>
+      <Space.Compact className="toolbar-group">
         <Tooltip title="升序排序">
           <Button
             size="small"
@@ -453,7 +453,7 @@ const Toolbar: React.FC = () => {
 
       {/* 更多操作 */}
       <Dropdown menu={{ items: moreMenuItems }} placement="bottomLeft">
-        <Button size="small" icon={<MoreOutlined />} />
+        <Button size="small" icon={<MoreOutlined />} className="header-action-button" />
       </Dropdown>
     </Space>
   )

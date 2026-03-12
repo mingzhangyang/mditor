@@ -56,9 +56,9 @@ const HistoryPanel: React.FC = () => {
   }
 
   return (
-    <div style={{ padding: 16, height: '100%', overflow: 'auto' }}>
+    <div className="panel-scroll">
       {/* 操作按钮 */}
-      <Card size="small" style={{ marginBottom: 16 }}>
+      <Card size="small" className="panel-card">
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <Space style={{ width: '100%', justifyContent: 'space-between' }}>
             <Button
@@ -103,13 +103,13 @@ const HistoryPanel: React.FC = () => {
       </Card>
 
       {/* 历史记录统计 */}
-      <Card size="small" style={{ marginBottom: 16 }}>
+      <Card size="small" className="panel-card">
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div className="sidebar-stat-row">
             <Text type="secondary">可撤销:</Text>
             <Text strong>{history.past.length}</Text>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div className="sidebar-stat-row">
             <Text type="secondary">可重做:</Text>
             <Text strong>{history.future.length}</Text>
           </div>
@@ -124,7 +124,7 @@ const HistoryPanel: React.FC = () => {
           style={{ marginTop: 40 }}
         />
       ) : (
-        <Card size="small" title="历史记录状态">
+        <Card size="small" title="历史记录状态" className="panel-card">
           <Space direction="vertical" style={{ width: '100%' }}>
             <Text>当前有 {history.past.length} 个可撤销的操作</Text>
             <Text>当前有 {history.future.length} 个可重做的操作</Text>

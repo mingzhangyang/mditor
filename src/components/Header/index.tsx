@@ -202,49 +202,59 @@ const Header: React.FC = () => {
   ]
 
   return (
-    <AntHeader className="app-header" style={{ padding: '0 16px', height: 64 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '100%' }}>
+    <AntHeader className="app-header" style={{ padding: '0 16px', height: 72 }}>
+      <div className="app-header-shell">
         {/* 左侧 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div className="app-header-left">
           <Button
             type="text"
             icon={<MenuOutlined />}
             onClick={() => setSidebarVisible(!sidebarVisible)}
             title={t('header.toggleSidebar')}
+            className="app-icon-button"
+            aria-label={t('header.toggleSidebar')}
           />
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Title level={4} style={{ margin: 0, color: '#1890ff' }}>
-              {t('header.title')}
-            </Title>
+          <div className="app-brand">
+            <div className="app-brand-mark" aria-hidden="true">
+              <span />
+            </div>
+            <div className="app-brand-copy">
+              <Title level={4} style={{ margin: 0 }}>
+                {t('header.title')}
+              </Title>
+              <span className="app-brand-subtitle">Visual markdown workspace</span>
+            </div>
             <a href="https://orangely.xyz" target="_blank" rel="noreferrer">
-              <Tag color="purple" style={{ cursor: 'pointer' }}>Orangely</Tag>
+              <Tag bordered={false} className="app-brand-tag">Orangely</Tag>
             </a>
           </div>
         </div>
 
         {/* 中间工具栏 */}
-        <Space size="small">
+        <Space size="small" className="header-toolbar">
           <Button
             icon={<FolderOpenOutlined />}
             onClick={handleImport}
             title={t('header.importFile')}
+            className="header-action-button"
           >
             {t('header.open')}
           </Button>
           
           <Dropdown menu={{ items: exportMenuItems }} placement="bottomLeft">
-            <Button icon={<DownloadOutlined />} title={t('header.exportFile')}>
+            <Button icon={<DownloadOutlined />} title={t('header.exportFile')} className="header-action-button">
               {t('header.export')}
             </Button>
           </Dropdown>
           
-          <div style={{ width: 1, height: 24, backgroundColor: '#e8e8e8', margin: '0 8px' }} />
+          <div className="header-divider" />
           
           <Button
             icon={<UndoOutlined />}
             onClick={handleUndo}
             disabled={history.past.length === 0}
             title={t('header.undoAction')}
+            className="header-action-button"
           />
           
           <Button
@@ -252,22 +262,24 @@ const Header: React.FC = () => {
             onClick={handleRedo}
             disabled={history.future.length === 0}
             title={t('header.redoAction')}
+            className="header-action-button"
           />
           
-          <div style={{ width: 1, height: 24, backgroundColor: '#e8e8e8', margin: '0 8px' }} />
+          <div className="header-divider" />
           
           <Button
             icon={<SaveOutlined />}
             type="primary"
             onClick={() => handleExport('markdown')}
             title={t('header.saveMarkdown')}
+            className="header-save-button"
           >
             {t('header.save')}
           </Button>
         </Space>
 
         {/* 右侧 */}
-        <Space size="small">
+        <Space size="small" className="header-secondary-actions">
           <Button
             type="text"
             icon={<SettingOutlined />}
@@ -275,6 +287,8 @@ const Header: React.FC = () => {
               setSettingsModalVisible(true)
             }}
             title={t('header.settingsTooltip')}
+            className="app-icon-button"
+            aria-label={t('header.settingsTooltip')}
           />
           
           <Dropdown menu={{ items: helpMenuItems }} placement="bottomRight">
@@ -282,6 +296,8 @@ const Header: React.FC = () => {
               type="text"
               icon={<QuestionCircleOutlined />}
               title={t('header.helpTooltip')}
+              className="app-icon-button"
+              aria-label={t('header.helpTooltip')}
             />
           </Dropdown>
         </Space>

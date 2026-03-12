@@ -1,6 +1,15 @@
 import React from 'react'
 import { Modal, Typography, Space, Divider, Tag, Button } from 'antd'
-import { GithubOutlined, HeartOutlined } from '@ant-design/icons'
+import {
+  AppstoreOutlined,
+  CheckCircleFilled,
+  CodeOutlined,
+  ExportOutlined,
+  GithubOutlined,
+  HeartFilled,
+  LinkOutlined,
+  ThunderboltOutlined,
+} from '@ant-design/icons'
 import { useI18n } from '@/i18n'
 
 const { Title, Text } = Typography
@@ -34,41 +43,49 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
       title={null}
       open={visible}
       onCancel={onClose}
+      className="app-modal app-modal-about"
       footer={[
-        <Button key="orangely" onClick={() => window.open('https://orangely.xyz', '_blank')}>
+        <Button key="orangely" onClick={() => window.open('https://orangely.xyz', '_blank')} className="modal-footer-button">
           Orangely
         </Button>,
-        <Button key="orangely-app" onClick={() => window.open('https://mditor.orangely.xyz', '_blank')}>
+        <Button key="orangely-app" onClick={() => window.open('https://mditor.orangely.xyz', '_blank')} className="modal-footer-button">
           mditor.orangely.xyz
         </Button>,
-        <Button key="github" icon={<GithubOutlined />} onClick={() => window.open('https://github.com/mingzhangyang/mditor', '_blank')}>
+        <Button
+          key="github"
+          icon={<GithubOutlined />}
+          onClick={() => window.open('https://github.com/mingzhangyang/mditor', '_blank')}
+          className="modal-footer-button"
+        >
           {t('about.viewOnGithub')}
         </Button>,
-        <Button key="close" type="primary" onClick={onClose}>
+        <Button key="close" type="primary" onClick={onClose} className="header-save-button">
           {t('common.close')}
         </Button>
       ]}
       width={600}
       centered
     >
-      <div style={{ padding: '20px 0' }}>
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <Title level={2} style={{ marginBottom: 8, color: 'var(--primary-color)' }}>
-            📊 {t('about.title')}
+      <div className="app-modal-body">
+        <div className="app-modal-hero">
+          <div className="app-modal-hero-mark" aria-hidden="true">
+            <AppstoreOutlined />
+          </div>
+          <Title level={2} className="app-modal-title">
+            {t('about.title')}
           </Title>
-          <Text type="secondary" style={{ fontSize: 16 }}>
+          <Text type="secondary" className="app-modal-subtitle">
             {t('about.subtitle')}
           </Text>
-          <div style={{ marginTop: 12 }}>
-            <Tag color="blue">v1.0.0</Tag>
-            <Tag color="green">React 18</Tag>
-            <Tag color="orange">TypeScript</Tag>
-            <a href="https://orangely.xyz" target="_blank" rel="noreferrer" style={{ marginLeft: 4 }}>
-              <Tag color="purple">Orangely</Tag>
+          <div className="app-modal-tag-row">
+            <Tag bordered={false} className="app-brand-tag">v1.0.0</Tag>
+            <Tag bordered={false} className="app-tag-neutral">React 18</Tag>
+            <Tag bordered={false} className="app-tag-neutral">TypeScript</Tag>
+            <a href="https://orangely.xyz" target="_blank" rel="noreferrer">
+              <Tag bordered={false} className="app-tag-neutral">Orangely</Tag>
             </a>
-            <a href="https://mditor.orangely.xyz" target="_blank" rel="noreferrer" style={{ marginLeft: 4 }}>
-              <Tag color="geekblue">mditor.orangely.xyz</Tag>
+            <a href="https://mditor.orangely.xyz" target="_blank" rel="noreferrer">
+              <Tag bordered={false} className="app-tag-neutral">mditor.orangely.xyz</Tag>
             </a>
           </div>
         </div>
@@ -76,12 +93,14 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
         <Divider />
 
         {/* Key Features */}
-        <div style={{ marginBottom: 24 }}>
-          <Title level={4}>🚀 {t('about.features')}</Title>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 16px' }}>
+        <div className="app-modal-section">
+          <Title level={4} className="app-modal-section-title">
+            <ThunderboltOutlined /> {t('about.features')}
+          </Title>
+          <div className="feature-grid">
             {features.map((feature, index) => (
-              <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
-                <span style={{ color: 'var(--success-color)', marginRight: 8 }}>✓</span>
+              <div key={index} className="feature-chip">
+                <CheckCircleFilled />
                 <Text>{feature}</Text>
               </div>
             ))}
@@ -89,20 +108,22 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
         </div>
 
         {/* Supported Formats */}
-        <div style={{ marginBottom: 24 }}>
-          <Title level={4}>📁 {t('about.supportedFormats')}</Title>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-            <div>
+        <div className="app-modal-section">
+          <Title level={4} className="app-modal-section-title">
+            <ExportOutlined /> {t('about.supportedFormats')}
+          </Title>
+          <div className="info-grid">
+            <div className="info-card">
               <Text strong>{t('about.importFormats')}:</Text>
-              <ul style={{ marginTop: 8, paddingLeft: 20 }}>
+              <ul className="modal-list">
                 {supportedFormats.import.map((format, index) => (
                   <li key={index}><Text type="secondary">{format}</Text></li>
                 ))}
               </ul>
             </div>
-            <div>
+            <div className="info-card">
               <Text strong>{t('about.exportFormats')}:</Text>
-              <ul style={{ marginTop: 8, paddingLeft: 20 }}>
+              <ul className="modal-list">
                 {supportedFormats.export.map((format, index) => (
                   <li key={index}><Text type="secondary">{format}</Text></li>
                 ))}
@@ -112,31 +133,34 @@ const AboutModal: React.FC<AboutModalProps> = ({ visible, onClose }) => {
         </div>
 
         {/* Keyboard Shortcuts */}
-        <div style={{ marginBottom: 24 }}>
-          <Title level={4}>⌨️ {t('about.keyboardShortcuts')}</Title>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px 16px', fontSize: 13 }}>
-            <div><Text code>Ctrl+O</Text> <Text type="secondary">{t('about.openFile')}</Text></div>
-            <div><Text code>Ctrl+S</Text> <Text type="secondary">{t('about.saveFile')}</Text></div>
-            <div><Text code>Ctrl+Z</Text> <Text type="secondary">{t('about.undo')}</Text></div>
-            <div><Text code>Ctrl+Shift+Z</Text> <Text type="secondary">{t('about.redo')}</Text></div>
-            <div><Text code>F11</Text> <Text type="secondary">{t('about.toggleSidebar')}</Text></div>
-            <div><Text code>Tab</Text> <Text type="secondary">{t('about.navigateCells')}</Text></div>
+        <div className="app-modal-section">
+          <Title level={4} className="app-modal-section-title">
+            <CodeOutlined /> {t('about.keyboardShortcuts')}
+          </Title>
+          <div className="shortcut-grid shortcut-grid-compact">
+            <div className="shortcut-card"><Text code>Ctrl+O</Text><Text type="secondary">{t('about.openFile')}</Text></div>
+            <div className="shortcut-card"><Text code>Ctrl+S</Text><Text type="secondary">{t('about.saveFile')}</Text></div>
+            <div className="shortcut-card"><Text code>Ctrl+Z</Text><Text type="secondary">{t('about.undo')}</Text></div>
+            <div className="shortcut-card"><Text code>Ctrl+Shift+Z</Text><Text type="secondary">{t('about.redo')}</Text></div>
+            <div className="shortcut-card"><Text code>F11</Text><Text type="secondary">{t('about.toggleSidebar')}</Text></div>
+            <div className="shortcut-card"><Text code>Tab</Text><Text type="secondary">{t('about.navigateCells')}</Text></div>
           </div>
         </div>
 
         <Divider />
 
         {/* Footer */}
-        <div style={{ textAlign: 'center' }}>
+        <div className="app-modal-footer-note">
           <Space>
             <Text type="secondary">{t('about.madeWith')}</Text>
-            <HeartOutlined style={{ color: '#ff4d4f' }} />
+            <HeartFilled style={{ color: 'var(--error-color)' }} />
             <Text type="secondary">{t('about.byTheCommunity')}</Text>
           </Space>
-          <div style={{ marginTop: 8 }}>
+          <div className="modal-footer-links">
             <Text type="secondary" style={{ fontSize: 12 }}>
               {t('about.openSource')} • {t('about.mitLicense')} • {t('about.builtWith')}
             </Text>
+            <LinkOutlined />
           </div>
         </div>
       </div>

@@ -106,48 +106,15 @@ const SettingsPanel: React.FC = () => {
   }
 
   return (
-    <div style={{ 
-      padding: '24px', 
-      height: '100%', 
-      overflow: 'auto',
-      background: 'var(--surface-color)'
-    }}>
+    <div className="panel-scroll panel-scroll-spacious">
       {/* 外观设置 */}
       <Card 
         size="small" 
-        title={
-          <span style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            color: 'var(--text-color)'
-          }}>
-            {t('settings.appearance')}
-          </span>
-        }
-        style={{ 
-          marginBottom: 20,
-          borderRadius: '12px',
-          border: '1px solid var(--border-color)',
-          boxShadow: '0 1px 3px 0 var(--shadow)',
-          background: 'var(--bg-color)'
-        }}
-        styles={{
-          header: {
-            borderBottom: '1px solid var(--border-color)',
-            paddingBottom: '12px'
-          },
-          body: {
-            padding: '20px'
-          }
-        }}
+        title={<span className="panel-card-title">{t('settings.appearance')}</span>}
+        className="panel-card panel-card-spacious"
       >
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-            padding: '8px 0'
-          }}>
+          <div className="setting-row">
             <Space>
               {settings.theme === 'dark' ? 
                 <MoonOutlined style={{ color: '#6366f1', fontSize: '16px' }} /> : 
@@ -162,13 +129,7 @@ const SettingsPanel: React.FC = () => {
           </div>
           
           <div>
-            <Text type="secondary" style={{ 
-              fontSize: '13px', 
-              display: 'block', 
-              marginBottom: 12,
-              fontWeight: 500,
-              color: 'var(--text-secondary)'
-            }}>{t('settings.language')}</Text>
+            <Text type="secondary" className="panel-field-label">{t('settings.language')}</Text>
             <Select
               value={language}
               onChange={(value) => {
@@ -188,13 +149,7 @@ const SettingsPanel: React.FC = () => {
           </div>
           
           <div>
-            <Text type="secondary" style={{ 
-              fontSize: '13px', 
-              display: 'block', 
-              marginBottom: 12,
-              fontWeight: 500,
-              color: 'var(--text-secondary)'
-            }}>{t('settings.fontSize')}</Text>
+            <Text type="secondary" className="panel-field-label">{t('settings.fontSize')}</Text>
             <Slider
               value={settings.fontSize}
               onChange={(value: number) => updateSettings({ fontSize: value })}
@@ -216,39 +171,11 @@ const SettingsPanel: React.FC = () => {
       {/* 编辑器设置 */}
       <Card 
         size="small" 
-        title={
-          <span style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            color: 'var(--text-color)'
-          }}>
-            {t('settings.editor')}
-          </span>
-        }
-        style={{ 
-          marginBottom: 20,
-          borderRadius: '12px',
-          border: '1px solid var(--border-color)',
-          boxShadow: '0 1px 3px 0 var(--shadow)',
-          background: 'var(--bg-color)'
-        }}
-        styles={{
-          header: {
-            borderBottom: '1px solid var(--border-color)',
-            paddingBottom: '12px'
-          },
-          body: {
-            padding: '20px'
-          }
-        }}
+        title={<span className="panel-card-title">{t('settings.editor')}</span>}
+        className="panel-card panel-card-spacious"
       >
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-            padding: '8px 0'
-          }}>
+          <div className="setting-row">
             <Text style={{ fontSize: '14px', fontWeight: 500 }}>{t('settings.autoSave')}</Text>
             <Switch
               checked={settings.autoSave}
@@ -258,13 +185,7 @@ const SettingsPanel: React.FC = () => {
           
           {settings.autoSave && (
             <div>
-              <Text type="secondary" style={{ 
-                fontSize: '13px', 
-                display: 'block', 
-                marginBottom: 12,
-                fontWeight: 500,
-                color: 'var(--text-secondary)'
-              }}>{t('settings.autoSaveInterval')}</Text>
+              <Text type="secondary" className="panel-field-label">{t('settings.autoSaveInterval')}</Text>
               <InputNumber
                 value={settings.autoSaveInterval}
                 onChange={(value) => updateSettings({ autoSaveInterval: value || 30 })}
@@ -280,7 +201,7 @@ const SettingsPanel: React.FC = () => {
             </div>
           )}
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="setting-row">
             <Text>{t('settings.showLineNumbers')}</Text>
             <Switch
               checked={settings.showLineNumbers}
@@ -288,7 +209,7 @@ const SettingsPanel: React.FC = () => {
             />
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="setting-row">
             <Text>{t('settings.syntaxHighlight')}</Text>
             <Switch
               checked={settings.enableSyntaxHighlight}
@@ -296,7 +217,7 @@ const SettingsPanel: React.FC = () => {
             />
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="setting-row">
             <Text>{t('settings.wordWrap')}</Text>
             <Switch
               checked={settings.wordWrap}
@@ -309,35 +230,12 @@ const SettingsPanel: React.FC = () => {
       {/* 表格设置 */}
       <Card 
         size="small" 
-        title={
-          <span style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            color: 'var(--text-color)'
-          }}>
-            {t('settings.table')}
-          </span>
-        }
-        style={{ 
-          marginBottom: 20,
-          borderRadius: '12px',
-          border: '1px solid var(--border-color)',
-          boxShadow: '0 1px 3px 0 var(--shadow)',
-          background: 'var(--bg-color)'
-        }}
-        styles={{
-          header: {
-            borderBottom: '1px solid var(--border-color)',
-            paddingBottom: '12px'
-          },
-          body: {
-            padding: '20px'
-          }
-        }}
+        title={<span className="panel-card-title">{t('settings.table')}</span>}
+        className="panel-card panel-card-spacious"
       >
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
           <div>
-            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 8 }}>{t('settings.defaultAlignment')}</Text>
+            <Text type="secondary" className="panel-field-label">{t('settings.defaultAlignment')}</Text>
             <Radio.Group
               value={settings.defaultAlignment}
               onChange={(e) => updateSettings({ defaultAlignment: e.target.value })}
@@ -349,7 +247,7 @@ const SettingsPanel: React.FC = () => {
             </Radio.Group>
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="setting-row">
             <Text>{t('settings.showGridLines')}</Text>
             <Switch
               checked={settings.showGridLines}
@@ -357,7 +255,7 @@ const SettingsPanel: React.FC = () => {
             />
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="setting-row">
             <Text>{t('settings.alternateRowColors')}</Text>
             <Switch
               checked={settings.alternateRowColors}
@@ -365,7 +263,7 @@ const SettingsPanel: React.FC = () => {
             />
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="setting-row">
             <Text>{t('settings.resizableColumns')}</Text>
             <Switch
               checked={settings.resizableColumns}
@@ -374,7 +272,7 @@ const SettingsPanel: React.FC = () => {
           </div>
           
           <div>
-            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 8 }}>{t('settings.maxHistorySize')}</Text>
+            <Text type="secondary" className="panel-field-label">{t('settings.maxHistorySize')}</Text>
             <InputNumber
               value={settings.maxHistorySize}
               onChange={(value) => updateSettings({ maxHistorySize: value || 50 })}
@@ -391,35 +289,12 @@ const SettingsPanel: React.FC = () => {
       {/* 导入导出设置 */}
       <Card 
         size="small" 
-        title={
-          <span style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            color: 'var(--text-color)'
-          }}>
-            {t('settings.importExport')}
-          </span>
-        }
-        style={{ 
-          marginBottom: 20,
-          borderRadius: '12px',
-          border: '1px solid var(--border-color)',
-          boxShadow: '0 1px 3px 0 var(--shadow)',
-          background: 'var(--bg-color)'
-        }}
-        styles={{
-          header: {
-            borderBottom: '1px solid var(--border-color)',
-            paddingBottom: '12px'
-          },
-          body: {
-            padding: '20px'
-          }
-        }}
+        title={<span className="panel-card-title">{t('settings.importExport')}</span>}
+        className="panel-card panel-card-spacious"
       >
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <div>
-            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 8 }}>{t('settings.defaultExportFormat')}</Text>
+            <Text type="secondary" className="panel-field-label">{t('settings.defaultExportFormat')}</Text>
             <Select
               value={settings.defaultExportFormat}
               onChange={(value) => updateSettings({ defaultExportFormat: value })}
@@ -434,7 +309,7 @@ const SettingsPanel: React.FC = () => {
             </Select>
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="setting-row">
             <Text>{t('settings.exportWithStyles')}</Text>
             <Switch
               checked={settings.exportWithStyles}
@@ -442,7 +317,7 @@ const SettingsPanel: React.FC = () => {
             />
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="setting-row">
             <Text>{t('settings.compressExports')}</Text>
             <Switch
               checked={settings.compressExports}
@@ -455,34 +330,11 @@ const SettingsPanel: React.FC = () => {
       {/* 性能设置 */}
       <Card 
         size="small" 
-        title={
-          <span style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            color: 'var(--text-color)'
-          }}>
-            {t('settings.performance')}
-          </span>
-        }
-        style={{ 
-          marginBottom: 20,
-          borderRadius: '12px',
-          border: '1px solid var(--border-color)',
-          boxShadow: '0 1px 3px 0 var(--shadow)',
-          background: 'var(--bg-color)'
-        }}
-        styles={{
-          header: {
-            borderBottom: '1px solid var(--border-color)',
-            paddingBottom: '12px'
-          },
-          body: {
-            padding: '20px'
-          }
-        }}
+        title={<span className="panel-card-title">{t('settings.performance')}</span>}
+        className="panel-card panel-card-spacious"
       >
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="setting-row">
             <Text>{t('settings.enableVirtualScrolling')}</Text>
             <Tooltip title="大表格时提升性能">
               <Switch
@@ -492,7 +344,7 @@ const SettingsPanel: React.FC = () => {
             </Tooltip>
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="setting-row">
             <Text>{t('settings.lazyRendering')}</Text>
             <Tooltip title="减少初始加载时间">
               <Switch
@@ -503,7 +355,7 @@ const SettingsPanel: React.FC = () => {
           </div>
           
           <div>
-            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 8 }}>{t('settings.renderDelay')}</Text>
+            <Text type="secondary" className="panel-field-label">{t('settings.renderDelay')}</Text>
             <InputNumber
               value={settings.renderDelay}
               onChange={(value) => updateSettings({ renderDelay: value || 100 })}
@@ -520,42 +372,16 @@ const SettingsPanel: React.FC = () => {
       {/* 设置管理 */}
       <Card 
         size="small" 
-        title={
-          <span style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            color: 'var(--text-color)'
-          }}>
-            {t('settings.management')}
-          </span>
-        }
-        style={{ 
-          borderRadius: '12px',
-          border: '1px solid var(--border-color)',
-          boxShadow: '0 1px 3px 0 var(--shadow)',
-          background: 'var(--bg-color)'
-        }}
-        styles={{
-          header: {
-            borderBottom: '1px solid var(--border-color)',
-            paddingBottom: '12px'
-          },
-          body: {
-            padding: '20px'
-          }
-        }}
+        title={<span className="panel-card-title">{t('settings.management')}</span>}
+        className="panel-card panel-card-spacious"
       >
         <Space direction="vertical" size="small" style={{ width: '100%' }}>
-          <Space style={{ width: '100%', justifyContent: 'space-between' }}>
+          <Space style={{ width: '100%', justifyContent: 'space-between' }} wrap>
             <Button
               size="middle"
               icon={<SaveOutlined />}
               onClick={saveSettings}
-              style={{
-                borderRadius: '8px',
-                fontWeight: 500,
-                height: '36px'
-              }}
+              className="panel-action-button"
             >
               {t('settings.saveSettings')}
             </Button>
@@ -564,26 +390,18 @@ const SettingsPanel: React.FC = () => {
               size="middle"
               icon={<ReloadOutlined />}
               onClick={loadSettings}
-              style={{
-                borderRadius: '8px',
-                fontWeight: 500,
-                height: '36px'
-              }}
+              className="panel-action-button"
             >
               {t('settings.loadSettings')}
             </Button>
           </Space>
           
-          <Space style={{ width: '100%', justifyContent: 'space-between' }}>
+          <Space style={{ width: '100%', justifyContent: 'space-between' }} wrap>
             <Button
               size="middle"
               icon={<ExportOutlined />}
               onClick={exportSettings}
-              style={{
-                borderRadius: '8px',
-                fontWeight: 500,
-                height: '36px'
-              }}
+              className="panel-action-button"
             >
               {t('settings.exportSettings')}
             </Button>
@@ -592,11 +410,7 @@ const SettingsPanel: React.FC = () => {
               size="middle"
               icon={<ImportOutlined />}
               onClick={importSettings}
-              style={{
-                borderRadius: '8px',
-                fontWeight: 500,
-                height: '36px'
-              }}
+              className="panel-action-button"
             >
               {t('settings.importSettings')}
             </Button>
@@ -608,12 +422,7 @@ const SettingsPanel: React.FC = () => {
             onClick={handleResetSettings}
             danger
             block
-            style={{
-              borderRadius: '8px',
-              fontWeight: 500,
-              height: '40px',
-              marginTop: '8px'
-            }}
+            className="panel-action-button panel-action-button-danger"
           >
             {t('settings.resetToDefault')}
           </Button>

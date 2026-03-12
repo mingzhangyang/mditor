@@ -137,23 +137,15 @@ const MainEditor: React.FC = () => {
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div className="workspace-shell">
       {/* 工具栏 */}
-      <div style={{ 
-        borderBottom: '1px solid var(--border-color)', 
-        backgroundColor: 'var(--bg-color)',
-        padding: '8px 16px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexShrink: 0,
-      }}>
+      <div className="workspace-toolbar">
         <Toolbar />
-        {renderViewModeButtons()}
+        <div className="workspace-mode-switcher">{renderViewModeButtons()}</div>
       </div>
 
       {/* 编辑器内容 */}
-      <div style={{ flex: 1, overflow: 'hidden' }}>
+      <div className="workspace-editor-region">
         {renderEditorContent()}
       </div>
     </div>

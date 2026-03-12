@@ -15,19 +15,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ visible, onClose }) => {
   return (
     <Modal
       title={
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          fontSize: '18px',
-          fontWeight: 600,
-          color: 'var(--text-color)',
-          padding: '4px 0'
-        }}>
-          <SettingOutlined style={{ 
-            marginRight: 12, 
-            fontSize: '20px',
-            color: 'var(--primary-color)'
-          }} />
+        <div className="modal-title-inline">
+          <SettingOutlined className="modal-title-icon" />
           {t('header.settings')}
         </div>
       }
@@ -37,14 +26,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ visible, onClose }) => {
       width={720}
       destroyOnHidden
       centered
+      className="app-modal app-modal-settings"
       closeIcon={
-        <CloseOutlined style={{
-          fontSize: '16px',
-          color: 'var(--text-secondary)',
-          padding: '8px',
-          borderRadius: '6px',
-          transition: 'all 0.2s ease',
-        }} />
+        <CloseOutlined className="modal-close-icon" />
       }
       styles={{
         mask: { backgroundColor: 'rgba(0, 0, 0, 0.3)' },
