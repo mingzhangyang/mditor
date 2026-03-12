@@ -28,6 +28,7 @@ import { useTableStore } from '@/store'
 import { ImportExportManager } from '@/utils/importExport'
 import { useI18n } from '@/i18n'
 import type { FileInfo } from '@/types'
+import { cloneTableData } from '@/utils/tableData'
 
 const { Text } = Typography
 const { Search } = Input
@@ -89,7 +90,7 @@ const FilePanel: React.FC = () => {
 
     addFile(newFile)
     setCurrentFile(newFile.id)
-    setTableData(newFile.data)
+    setTableData(cloneTableData(newFile.data))
     
     const markdownContent = ImportExportManager.exportToMarkdown(newFile.data)
     setMarkdownContent(markdownContent)
@@ -104,7 +105,7 @@ const FilePanel: React.FC = () => {
   // 打开文件
   const handleOpenFile = (file: FileInfo) => {
     setCurrentFile(file.id)
-    setTableData(file.data)
+    setTableData(cloneTableData(file.data))
     
     const markdownContent = ImportExportManager.exportToMarkdown(file.data)
     setMarkdownContent(markdownContent)
@@ -129,7 +130,7 @@ const FilePanel: React.FC = () => {
 
     const updatedFile: FileInfo = {
       ...file,
-      data: tableData,
+      data: cloneTableData(tableData),
       modifiedAt: Date.now(),
       size: JSON.stringify(tableData).length,
     }

@@ -1,4 +1,4 @@
-import { TableData, ExportOptions, ImportResult } from '../types/index';
+import { TableData, ExportOptions, ImportResult, CellStyle, AppSettings } from '../types/index';
 import { MarkdownTableParser } from './markdown';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
@@ -51,7 +51,7 @@ export class ImportExportManager {
   /**
    * 导出表格数据
    */
-  static async export(tableData: TableData, options: ExportOptions, cellStyles?: Map<string, any>, appSettings?: any): Promise<void> {
+  static async export(tableData: TableData, options: ExportOptions, cellStyles?: Map<string, CellStyle>, appSettings?: AppSettings): Promise<void> {
     try {
       switch (options.format) {
         case 'markdown':
@@ -140,7 +140,7 @@ export class ImportExportManager {
             });
           }
         },
-        error: (error: any) => {
+        error: (error: Error) => {
           resolve({
             success: false,
             error: `CSV parsing error: ${error.message}`
@@ -253,7 +253,7 @@ export class ImportExportManager {
   /**
    * 导出为 HTML
    */
-  private static async exportHTML(tableData: TableData, options: ExportOptions, cellStyles?: Map<string, any>, appSettings?: any): Promise<void> {
+  private static async exportHTML(tableData: TableData, options: ExportOptions, cellStyles?: Map<string, CellStyle>, appSettings?: AppSettings): Promise<void> {
     const { headers, rows, alignments, columnWidths } = tableData;
     
     // 获取当前主题的CSS变量值
@@ -287,7 +287,7 @@ export class ImportExportManager {
         `text-decoration: ${customStyle.textDecoration || 'none'}`
       ];
       
-      html += `      <th style="${styles.join('; ')}">${header}</th>\n`;
+      html += `      <th style="${styles.join('; ')}">${escapeHtml(header)}</th>\n`;
     });
     html += '    </tr>\n  </thead>\n';
     
@@ -318,7 +318,7 @@ export class ImportExportManager {
           `white-space: ${appSettings?.wordWrap ? 'pre-wrap' : 'nowrap'}`
         ];
         
-        html += `      <td style="${styles.join('; ')}">${cell}</td>\n`;
+        html += `      <td style="${styles.join('; ')}">${escapeHtml(cell)}</td>\n`;
       });
       html += '    </tr>\n';
     });
@@ -364,7 +364,7 @@ ${html}
   /**
    * 导出为 Excel
    */
-  private static async exportExcel(tableData: TableData, options: ExportOptions, cellStyles?: Map<string, any>, appSettings?: any): Promise<void> {
+  private static async exportExcel(tableData: TableData, options: ExportOptions, cellStyles?: Map<string, CellStyle>, appSettings?: AppSettings): Promise<void> {
     const { headers, rows, columnWidths } = tableData;
     const worksheetData = [headers, ...rows];
     
@@ -446,7 +446,7 @@ ${html}
   /**
    * 导出为图片
    */
-  private static async exportImage(tableData: TableData, options: ExportOptions, format: 'png' | 'svg', cellStyles?: Map<string, any>, appSettings?: any): Promise<void> {
+  private static async exportImage(tableData: TableData, options: ExportOptions, format: 'png' | 'svg', cellStyles?: Map<string, CellStyle>, appSettings?: AppSettings): Promise<void> {
     // 创建临时表格元素
     const table = this.createTableElement(tableData, cellStyles, appSettings);
     document.body.appendChild(table);
@@ -486,7 +486,7 @@ ${html}
   /**
    * 创建表格 DOM 元素
    */
-  private static createTableElement(tableData: TableData, cellStyles?: Map<string, any>, appSettings?: any): HTMLTableElement {
+  private static createTableElement(tableData: TableData, cellStyles?: Map<string, CellStyle>, appSettings?: AppSettings): HTMLTableElement {
     const { headers, rows, alignments, columnWidths } = tableData;
     
     // 获取当前主题的CSS变量值
@@ -528,7 +528,7 @@ ${html}
       th.style.backgroundColor = customStyle.backgroundColor || surfaceColor;
       th.style.color = customStyle.color || textColor;
       th.style.textAlign = customStyle.textAlign || alignments[index] || 'left';
-      th.style.fontWeight = customStyle.fontWeight || 'bold';
+      th.style.fontWeight = String(customStyle.fontWeight || 'bold');
       th.style.fontSize = customStyle.fontSize ? `${customStyle.fontSize}px` : 'inherit';
       th.style.fontStyle = customStyle.fontStyle || 'normal';
       th.style.textDecoration = customStyle.textDecoration || 'none';
@@ -574,7 +574,7 @@ ${html}
         td.style.backgroundColor = customStyle.backgroundColor || (appSettings?.alternateRowColors && rowIndex % 2 === 1 ? surfaceColor : bgColor);
         td.style.color = customStyle.color || textColor;
         td.style.textAlign = customStyle.textAlign || alignments[colIndex] || 'left';
-        td.style.fontWeight = customStyle.fontWeight || 'normal';
+        td.style.fontWeight = String(customStyle.fontWeight || 'normal');
         td.style.fontSize = customStyle.fontSize ? `${customStyle.fontSize}px` : 'inherit';
         td.style.fontStyle = customStyle.fontStyle || 'normal';
         td.style.textDecoration = customStyle.textDecoration || 'none';
@@ -604,7 +604,7 @@ ${html}
   /**
    * 创建 SVG 表格
    */
-  private static createSVGFromTable(tableData: TableData, cellStyles?: Map<string, any>, appSettings?: any): string {
+  private static createSVGFromTable(tableData: TableData, cellStyles?: Map<string, CellStyle>, appSettings?: AppSettings): string {
     const { headers, rows, alignments, columnWidths } = tableData;
     
     // 获取当前主题的CSS变量值
@@ -646,7 +646,7 @@ ${html}
       }
       
       svg += `<rect x="${currentX}" y="0" width="${cellWidth}" height="${cellHeight}" fill="${headerBg}" stroke="${customStyle.borderColor || borderColor}" stroke-width="${customStyle.borderWidth || 1}"/>`;
-      svg += `<text x="${textX}" y="${cellHeight / 2 + 5}" text-anchor="${textAnchor}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="${fontSize}" font-weight="${fontWeight}" fill="${headerColor}">${header}</text>`;
+      svg += `<text x="${textX}" y="${cellHeight / 2 + 5}" text-anchor="${textAnchor}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="${fontSize}" font-weight="${fontWeight}" fill="${headerColor}">${escapeHtml(header)}</text>`;
       
       currentX += cellWidth;
     });
@@ -680,7 +680,7 @@ ${html}
         }
         
         svg += `<rect x="${currentX}" y="${y}" width="${cellWidth}" height="${cellHeight}" fill="${cellBg}" stroke="${customStyle.borderColor || borderColor}" stroke-width="${customStyle.borderWidth || 1}"/>`;
-        svg += `<text x="${textX}" y="${y + cellHeight / 2 + 5}" text-anchor="${textAnchor}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="${fontSize}" font-weight="${fontWeight}" fill="${cellColor}">${cell}</text>`;
+        svg += `<text x="${textX}" y="${y + cellHeight / 2 + 5}" text-anchor="${textAnchor}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="${fontSize}" font-weight="${fontWeight}" fill="${cellColor}">${escapeHtml(cell)}</text>`;
         
         currentX += cellWidth;
       });
@@ -694,14 +694,14 @@ ${html}
   /**
    * 导出为 SVG 字符串
    */
-  static async exportToSVG(tableData: TableData, cellStyles?: Map<string, any>, appSettings?: any): Promise<string> {
+  static async exportToSVG(tableData: TableData, cellStyles?: Map<string, CellStyle>, appSettings?: AppSettings): Promise<string> {
     return this.createSVGFromTable(tableData, cellStyles, appSettings);
   }
 
   /**
    * 导出为 PNG Canvas
    */
-  static async exportToPNG(tableData: TableData, cellStyles?: Map<string, any>, appSettings?: any): Promise<HTMLCanvasElement> {
+  static async exportToPNG(tableData: TableData, cellStyles?: Map<string, CellStyle>, appSettings?: AppSettings): Promise<HTMLCanvasElement> {
     const tableElement = this.createTableElement(tableData, cellStyles, appSettings);
     
     // 临时添加到 DOM 中进行渲染
@@ -729,7 +729,7 @@ ${html}
   /**
    * 导出为 HTML 字符串
    */
-  static exportToHTML(tableData: TableData, cellStyles?: Map<string, any>, appSettings?: any): string {
+  static exportToHTML(tableData: TableData, cellStyles?: Map<string, CellStyle>, appSettings?: AppSettings): string {
     const { headers, rows, alignments, columnWidths } = tableData;
     
     // 获取当前主题的CSS变量值
@@ -759,7 +759,7 @@ ${html}
         `font-size: ${customStyle.fontSize ? customStyle.fontSize + 'px' : (appSettings?.fontSize || 14) + 'px'}`
       ];
       
-      html += `      <th style="${styles.join('; ')}">${header}</th>\n`;
+      html += `      <th style="${styles.join('; ')}">${escapeHtml(header)}</th>\n`;
     });
     html += '    </tr>\n  </thead>\n';
     
@@ -784,7 +784,7 @@ ${html}
           `font-size: ${customStyle.fontSize ? customStyle.fontSize + 'px' : (appSettings?.fontSize || 14) + 'px'}`
         ];
         
-        html += `      <td style="${styles.join('; ')}">${cell}</td>\n`;
+        html += `      <td style="${styles.join('; ')}">${escapeHtml(cell)}</td>\n`;
       });
       html += '    </tr>\n';
     });
@@ -862,3 +862,11 @@ ${html}
     }
   }
 }
+
+const escapeHtml = (value: string): string =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')

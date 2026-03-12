@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Layout, App as AntApp } from 'antd'
 import { useTableStore } from '@/store'
-import { useI18n } from '@/i18n'
+import { isLanguage, useI18n } from '@/i18n'
 import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
 import MainEditor from '@/components/MainEditor'
@@ -24,32 +24,11 @@ const App: React.FC = () => {
     settings,
   } = useTableStore()
 
-  // 初始化应用
+  // 同步语言设置
   useEffect(() => {
-    // 同步语言设置
-    if (settings.language) {
-      setLanguage(settings.language as any)
+    if (isLanguage(settings.language)) {
+      setLanguage(settings.language)
     }
-    
-    // Set default table data
-    const defaultData = {
-      headers: ['A', 'B', 'C'],
-      rows: [
-        ['a1', 'b1', 'c1'],
-        ['a2', 'b2', 'c2'],
-        ['a3', 'b3', 'c3'],
-      ],
-      alignments: ['left', 'center', 'right'] as ('left' | 'center' | 'right')[],
-    }
-    
-    setTableData(defaultData)
-    
-    // 生成初始 Markdown 内容
-    const markdownContent = ImportExportManager.exportToMarkdown(defaultData)
-    setMarkdownContent(markdownContent)
-    
-    // 添加到历史记录
-    saveToHistory()
   }, [settings.language, setLanguage])
 
   // 处理文件拖拽
@@ -92,7 +71,7 @@ const App: React.FC = () => {
       document.removeEventListener('dragover', handleDragOver)
       document.removeEventListener('drop', handleDrop)
     }
-  }, [setTableData, setMarkdownContent, saveToHistory])
+  }, [message, saveToHistory, setMarkdownContent, setTableData, t])
 
   // 处理键盘快捷键
   useEffect(() => {
@@ -129,7 +108,7 @@ const App: React.FC = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [sidebarVisible, setSidebarVisible])
+  }, [message, setSidebarVisible, sidebarVisible])
 
   return (
     <Layout className="app-container">

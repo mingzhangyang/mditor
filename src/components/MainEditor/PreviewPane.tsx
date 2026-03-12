@@ -117,7 +117,7 @@ const PreviewPane: React.FC<PreviewPaneProps> = ({ height = 600 }) => {
       message.error('导出失败')
       console.error('导出错误:', error)
     }
-  }, [tableData, cellStyles, exportFormat])
+  }, [cellStyles, exportFormat, message, settings, tableData])
 
   // 打印表格
   const printTable = useCallback(() => {
@@ -160,7 +160,7 @@ const PreviewPane: React.FC<PreviewPaneProps> = ({ height = 600 }) => {
     } catch (error) {
       message.error('复制失败')
     }
-  }, [tableData, cellStyles, settings])
+  }, [message, tableData, cellStyles, settings])
 
   // 获取单元格样式
   const getCellStyle = useCallback((row: number, col: number) => {
@@ -283,7 +283,7 @@ const PreviewPane: React.FC<PreviewPaneProps> = ({ height = 600 }) => {
         {htmlContent}
       </pre>
     )
-  }, [tableData, cellStyles, zoom])
+  }, [tableData, cellStyles, settings, zoom])
 
   return (
     <div 
@@ -355,7 +355,7 @@ const PreviewPane: React.FC<PreviewPaneProps> = ({ height = 600 }) => {
             max={200}
             step={10}
             style={{ width: 80 }}
-            tooltip={{ formatter: (value) => `${value}%` }}
+            tooltip={{ formatter: (value?: number) => `${value ?? zoom}%` }}
           />
           
           <span 

@@ -3,6 +3,7 @@ import { zhCN } from './locales/zh-CN'
 import { enUS } from './locales/en-US'
 
 export type Language = 'zh-CN' | 'en-US'
+export const isLanguage = (value: string): value is Language => value === 'zh-CN' || value === 'en-US'
 
 export interface TranslationKeys {
   // 通用
@@ -405,19 +406,22 @@ export const useI18n = create<I18nState>((set, get) => ({
   t: (key: string) => {
     const { language } = get()
     const keys = key.split('.')
-    let value: any = translations[language]
+    let value: unknown = translations[language]
     
     for (const k of keys) {
-      value = value?.[k]
+      if (typeof value !== 'object' || value === null || !(k in value)) {
+        return key
+      }
+      value = (value as Record<string, unknown>)[k]
     }
     
-    return value || key
+    return typeof value === 'string' && value.length > 0 ? value : key
   }
 }))
 
 // 初始化语言设置
 const savedLanguage = localStorage.getItem('app-language') as Language
-if (savedLanguage && translations[savedLanguage]) {
+if (savedLanguage && isLanguage(savedLanguage) && translations[savedLanguage]) {
   useI18n.getState().setLanguage(savedLanguage)
 } else {
   // 如果没有保存的语言设置，使用默认的英文并保存到本地存储

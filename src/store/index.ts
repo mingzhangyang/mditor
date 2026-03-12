@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { TableData, TableState, CellStyle, EditorMode, AppSettings, TableHistory, CellPosition, FileInfo } from '../types/index';
 import { MarkdownTableParser } from '../utils/markdown';
+import { cloneCellPositions, cloneCellStyles, cloneTableData, cloneTableState, isSameTableState } from '../utils/tableData';
 
 interface AppState {
   // 表格数据
@@ -84,13 +85,13 @@ interface AppState {
 
 // 默认表格数据
 const defaultTableData: TableData = {
-  headers: ['Column 1', 'Column 2', 'Column 3'],
+  headers: ['A', 'B', 'C'],
   rows: [
-    ['Row 1 Col 1', 'Row 1 Col 2', 'Row 1 Col 3'],
-    ['Row 2 Col 1', 'Row 2 Col 2', 'Row 2 Col 3'],
-    ['Row 3 Col 1', 'Row 3 Col 2', 'Row 3 Col 3']
+    ['a1', 'b1', 'c1'],
+    ['a2', 'b2', 'c2'],
+    ['a3', 'b3', 'c3']
   ],
-  alignments: ['left', 'left', 'left'],
+  alignments: ['left', 'center', 'right'],
   columnWidths: [150, 150, 150] // 默认列宽
 };
 
@@ -137,7 +138,7 @@ const defaultCellStyle: CellStyle = {
 // 创建初始历史状态
 const createInitialHistory = (tableData: TableData): TableHistory => {
   const initialState: TableState = {
-    data: tableData,
+    data: cloneTableData(tableData),
     styles: new Map(),
     selectedCells: [],
     selectedRows: [],
@@ -176,31 +177,12 @@ export const useAppStore = create<AppState>()(devtools((set, get) => ({
   
   // 表格数据操作
   setTableData: (data: TableData) => {
-    set((state) => {
-      const newState = {
-        ...state,
-        tableData: data,
-        markdownContent: MarkdownTableParser.serialize(data)
-      };
-      
-      // 保存到历史记录
-      const currentState: TableState = {
-        data,
-        styles: state.cellStyles,
-        selectedCells: state.selectedCells,
-        selectedRows: state.selectedRows,
-        selectedColumns: state.selectedColumns,
-        timestamp: Date.now()
-      };
-      
-      newState.history = {
-        past: [...state.history.past, state.history.present],
-        present: currentState,
-        future: []
-      };
-      
-      return newState;
-    });
+    const nextTableData = cloneTableData(data);
+    set((state) => ({
+      ...state,
+      tableData: nextTableData,
+      markdownContent: MarkdownTableParser.serialize(nextTableData)
+    }));
   },
   
   updateCell: (row: number, col: number, value: string) => {
@@ -268,7 +250,7 @@ export const useAppStore = create<AppState>()(devtools((set, get) => ({
 
   updateColumnWidth: (columnIndex: number, width: number) => {
     set((state) => {
-      const newTableData = { ...state.tableData };
+      const newTableData = cloneTableData(state.tableData);
       if (!newTableData.columnWidths) {
         newTableData.columnWidths = new Array(newTableData.headers.length).fill(150);
       }
@@ -366,7 +348,7 @@ export const useAppStore = create<AppState>()(devtools((set, get) => ({
         const tableData = MarkdownTableParser.parse(state.markdownContent);
         return {
           ...state,
-          tableData,
+          tableData: cloneTableData(tableData),
           error: null
         };
       } catch (error) {
@@ -397,11 +379,11 @@ export const useAppStore = create<AppState>()(devtools((set, get) => ({
       
       return {
         ...state,
-        tableData: previous.data,
-        cellStyles: previous.styles,
-        selectedCells: previous.selectedCells,
-        selectedRows: previous.selectedRows,
-        selectedColumns: previous.selectedColumns,
+        tableData: cloneTableData(previous.data),
+        cellStyles: cloneCellStyles(previous.styles),
+        selectedCells: cloneCellPositions(previous.selectedCells),
+        selectedRows: [...previous.selectedRows],
+        selectedColumns: [...previous.selectedColumns],
         markdownContent: MarkdownTableParser.serialize(previous.data),
         history: {
           past: newPast,
@@ -423,11 +405,11 @@ export const useAppStore = create<AppState>()(devtools((set, get) => ({
       
       return {
         ...state,
-        tableData: next.data,
-        cellStyles: next.styles,
-        selectedCells: next.selectedCells,
-        selectedRows: next.selectedRows,
-        selectedColumns: next.selectedColumns,
+        tableData: cloneTableData(next.data),
+        cellStyles: cloneCellStyles(next.styles),
+        selectedCells: cloneCellPositions(next.selectedCells),
+        selectedRows: [...next.selectedRows],
+        selectedColumns: [...next.selectedColumns],
         markdownContent: MarkdownTableParser.serialize(next.data),
         history: {
           past: [...past, present],
@@ -441,18 +423,22 @@ export const useAppStore = create<AppState>()(devtools((set, get) => ({
   saveToHistory: () => {
     set((state) => {
       const currentState: TableState = {
-        data: state.tableData,
-        styles: state.cellStyles,
-        selectedCells: state.selectedCells,
-        selectedRows: state.selectedRows,
-        selectedColumns: state.selectedColumns,
+        data: cloneTableData(state.tableData),
+        styles: cloneCellStyles(state.cellStyles),
+        selectedCells: cloneCellPositions(state.selectedCells),
+        selectedRows: [...state.selectedRows],
+        selectedColumns: [...state.selectedColumns],
         timestamp: Date.now()
       };
+
+      if (isSameTableState(currentState, state.history.present)) {
+        return state;
+      }
       
       return {
         ...state,
         history: {
-          past: [...state.history.past, state.history.present],
+          past: [...state.history.past, cloneTableState(state.history.present)].slice(-state.settings.maxHistorySize),
           present: currentState,
           future: []
         }
@@ -464,7 +450,7 @@ export const useAppStore = create<AppState>()(devtools((set, get) => ({
   addFile: (file: FileInfo) => {
     set((state) => ({
       ...state,
-      files: [...state.files, file]
+      files: [...state.files, { ...file, data: cloneTableData(file.data) }]
     }));
   },
 
@@ -478,7 +464,7 @@ export const useAppStore = create<AppState>()(devtools((set, get) => ({
   updateFile: (file: FileInfo) => {
     set((state) => ({
       ...state,
-      files: state.files.map(f => f.id === file.id ? file : f)
+      files: state.files.map(f => f.id === file.id ? { ...file, data: cloneTableData(file.data) } : f)
     }));
   },
 
@@ -499,10 +485,14 @@ export const useAppStore = create<AppState>()(devtools((set, get) => ({
       
       // 如果语言设置发生变化，同步到国际化系统
       if (newSettings.language && typeof window !== 'undefined') {
+        const nextLanguage = newSettings.language;
         // 动态导入国际化hook以避免循环依赖
-        import('../i18n').then(({ useI18n }) => {
+        import('../i18n').then(({ isLanguage, useI18n }) => {
+          if (!isLanguage(nextLanguage)) {
+            return;
+          }
           const { setLanguage } = useI18n.getState();
-          setLanguage(newSettings.language as any);
+          setLanguage(nextLanguage);
         }).catch(console.error);
       }
       

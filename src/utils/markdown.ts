@@ -16,15 +16,27 @@ export class MarkdownTableParser {
 
     // 解析表头
     const headerLine = lines[0];
+    if (!headerLine.includes('|')) {
+      throw new Error('Missing markdown table header');
+    }
     const headers = this.parseTableRow(headerLine);
+    if (headers.length === 0) {
+      throw new Error('Missing markdown table columns');
+    }
 
     // 解析对齐方式
     const alignmentLine = lines[1];
+    if (!this.isAlignmentRow(alignmentLine)) {
+      throw new Error('Invalid markdown alignment row');
+    }
     const alignments = this.parseAlignments(alignmentLine);
+    if (alignments.length !== headers.length) {
+      throw new Error('Header and alignment column counts do not match');
+    }
 
     // 解析数据行
     const dataLines = lines.slice(2);
-    const rows = dataLines.map(line => this.parseTableRow(line));
+    const rows = dataLines.map(line => this.normalizeRow(this.parseTableRow(line), headers.length));
 
     return {
       headers,
@@ -71,6 +83,9 @@ export class MarkdownTableParser {
     
     return cells.map(cell => {
       const trimmed = cell.trim();
+      if (!/^:?-{3,}:?$/.test(trimmed)) {
+        throw new Error('Invalid markdown alignment cell');
+      }
       if (trimmed.startsWith(':') && trimmed.endsWith(':')) {
         return 'center';
       } else if (trimmed.endsWith(':')) {
@@ -104,6 +119,22 @@ export class MarkdownTableParser {
     });
     
     return this.buildTableRow(alignmentCells);
+  }
+
+  private static isAlignmentRow(line: string): boolean {
+    return /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$/.test(line.trim());
+  }
+
+  private static normalizeRow(cells: string[], columnCount: number): string[] {
+    if (cells.length === columnCount) {
+      return cells;
+    }
+
+    if (cells.length > columnCount) {
+      return cells.slice(0, columnCount);
+    }
+
+    return [...cells, ...new Array(columnCount - cells.length).fill('')];
   }
 
   /**

@@ -4,6 +4,7 @@ import { EyeOutlined, EditOutlined, CopyOutlined, DownloadOutlined } from '@ant-
 import { useI18n } from '@/i18n'
 import { useTableStore } from '@/store'
 import { MarkdownTableParser } from '@/utils/markdown'
+import type { TextAreaRef } from 'antd/es/input/TextArea'
 
 const { TextArea } = Input
 
@@ -28,8 +29,9 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ height = 600 }) => {
   const [currentLine, setCurrentLine] = useState(1)
   const [isModified, setIsModified] = useState(false)
   
-  const textAreaRef = useRef<any>(null)
+  const textAreaRef = useRef<TextAreaRef>(null)
   const previewRef = useRef<HTMLDivElement>(null)
+  const parseTimeoutRef = useRef<number | null>(null)
 
 
   // 同步外部内容变化
@@ -52,18 +54,22 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ height = 600 }) => {
     setIsModified(value !== markdownContent)
     
     // 实时解析表格（防抖）
-    const timeoutId = setTimeout(() => {
+    if (parseTimeoutRef.current !== null) {
+      window.clearTimeout(parseTimeoutRef.current)
+    }
+
+    parseTimeoutRef.current = window.setTimeout(() => {
       try {
         if (MarkdownTableParser.validate(value)) {
-        const tableData = MarkdownTableParser.parse(value)
+          const tableData = MarkdownTableParser.parse(value)
           setTableData(tableData)
         }
       } catch (error) {
         console.warn('Markdown 解析失败:', error)
+      } finally {
+        parseTimeoutRef.current = null
       }
     }, 500)
-    
-    return () => clearTimeout(timeoutId)
   }, [markdownContent, setTableData])
 
   // 应用更改
@@ -87,7 +93,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ height = 600 }) => {
       message.error('解析 Markdown 失败')
       console.error('Markdown 解析错误:', error)
     }
-  }, [localContent, setMarkdownContent, setTableData, saveToHistory])
+  }, [localContent, message, saveToHistory, setMarkdownContent, setTableData])
 
   // 重置更改
   const resetChanges = useCallback(() => {
@@ -103,7 +109,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ height = 600 }) => {
     } catch (error) {
       message.error('复制失败')
     }
-  }, [localContent])
+  }, [localContent, message])
 
   // 下载 Markdown 文件
   const downloadMarkdown = useCallback(() => {
@@ -121,7 +127,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ height = 600 }) => {
     } catch (error) {
       message.error('下载失败')
     }
-  }, [localContent])
+  }, [localContent, message])
 
   // 处理键盘快捷键
   const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
@@ -165,6 +171,12 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ height = 600 }) => {
       }
     }
   }, [localContent])
+
+  useEffect(() => () => {
+    if (parseTimeoutRef.current !== null) {
+      window.clearTimeout(parseTimeoutRef.current)
+    }
+  }, [])
 
   // 渲染预览内容
   const renderPreview = useCallback(() => {
@@ -232,7 +244,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ height = 600 }) => {
         </div>
       )
     }
-  }, [localContent])
+  }, [localContent, t])
 
   return (
     <div style={{ height, display: 'flex', flexDirection: 'column' }}>

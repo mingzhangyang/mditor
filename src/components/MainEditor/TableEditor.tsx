@@ -3,6 +3,7 @@ import { Input, App } from 'antd'
 import { useTableStore } from '@/store'
 import { ImportExportManager } from '@/utils/importExport'
 import type { CellPosition } from '@/types'
+import { cloneTableData } from '@/utils/tableData'
 
 const TableEditor: React.FC = () => {
   const { message } = App.useApp()
@@ -25,6 +26,7 @@ const TableEditor: React.FC = () => {
   const [resizing, setResizing] = useState<{ columnIndex: number; startX: number; startWidth: number } | null>(null)
   
   const tableRef = useRef<HTMLTableElement>(null)
+  const historyTimeoutRef = useRef<number | null>(null)
 
   // 处理单元格点击
   const handleCellClick = useCallback((row: number, col: number, event: React.MouseEvent) => {
@@ -66,7 +68,7 @@ const TableEditor: React.FC = () => {
 
   // 处理单元格值变化
   const handleCellChange = useCallback((row: number, col: number, value: string) => {
-    const newData = { ...tableData }
+    const newData = cloneTableData(tableData)
     
     if (row === -1) {
       // 编辑表头
@@ -86,12 +88,15 @@ const TableEditor: React.FC = () => {
     setMarkdownContent(markdownContent)
     
     // 添加到历史记录（防抖）
-    const timeoutId = setTimeout(() => {
+    if (historyTimeoutRef.current !== null) {
+      window.clearTimeout(historyTimeoutRef.current)
+    }
+
+    historyTimeoutRef.current = window.setTimeout(() => {
       saveToHistory()
+      historyTimeoutRef.current = null
     }, 1000)
-    
-    return () => clearTimeout(timeoutId)
-  }, [tableData, setTableData, setMarkdownContent, saveToHistory])
+  }, [saveToHistory, setMarkdownContent, setTableData, tableData])
 
   // 处理键盘事件
   const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
@@ -276,6 +281,12 @@ const TableEditor: React.FC = () => {
       document.removeEventListener('click', handleGlobalClick)
     }
   }, [closeContextMenu, handleResizeMove, handleResizeEnd])
+
+  useEffect(() => () => {
+    if (historyTimeoutRef.current !== null) {
+      window.clearTimeout(historyTimeoutRef.current)
+    }
+  }, [])
 
   // 检查单元格是否被选中
   const isCellSelected = useCallback((row: number, col: number) => {
