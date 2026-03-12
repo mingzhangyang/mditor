@@ -7,12 +7,13 @@ import Sidebar from '@/components/Sidebar'
 import MainEditor from '@/components/MainEditor'
 import SettingsModal from '@/components/SettingsModal'
 import { ImportExportManager } from '@/utils/importExport'
+import { applySeoMetadata, getSeoMetadata } from '@/utils/seo'
 
 const { Content, Sider } = Layout
 
 const App: React.FC = () => {
   const { message } = AntApp.useApp()
-  const { t, setLanguage } = useI18n()
+  const { t, setLanguage, language } = useI18n()
   const {
     sidebarVisible,
     setSidebarVisible,
@@ -30,6 +31,10 @@ const App: React.FC = () => {
       setLanguage(settings.language)
     }
   }, [settings.language, setLanguage])
+
+  useEffect(() => {
+    applySeoMetadata(language)
+  }, [language])
 
   // 处理文件拖拽
   useEffect(() => {
@@ -110,9 +115,13 @@ const App: React.FC = () => {
     }
   }, [message, setSidebarVisible, sidebarVisible])
 
+  const seoMetadata = getSeoMetadata(language)
+
   return (
     <Layout className="app-container">
-      <Header />
+      <header>
+        <Header />
+      </header>
       <Layout className="app-content">
         {sidebarVisible && (
           <Sider 
@@ -121,10 +130,16 @@ const App: React.FC = () => {
             theme="light"
             collapsible={false}
           >
-            <Sidebar />
+            <aside aria-label={t('sidebar.settings')}>
+              <Sidebar />
+            </aside>
           </Sider>
         )}
         <Content className="app-main">
+          <section className="visually-hidden" aria-label={seoMetadata.headline}>
+            <h1>{seoMetadata.headline}</h1>
+            <p>{seoMetadata.summary}</p>
+          </section>
           <MainEditor />
         </Content>
       </Layout>

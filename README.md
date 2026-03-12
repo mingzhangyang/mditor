@@ -80,6 +80,18 @@ npm run build
 npm run preview
 ```
 
+### 使用 Cloudflare Worker 本地预览
+```bash
+npm run preview:worker
+```
+
+### 部署到 Cloudflare Worker
+```bash
+npm run deploy
+```
+
+首次部署前请先执行 `npx wrangler login` 完成 Cloudflare 认证，并根据需要在 `wrangler.jsonc` 中调整 Worker 名称。
+
 ## 📁 项目结构
 
 ```
@@ -174,6 +186,14 @@ VITE_DEBUG=true
 - 开发服务器配置
 - 构建优化配置
 - 代码分割配置
+
+### Cloudflare Worker 配置
+
+项目现在通过 `wrangler.jsonc` 以 Cloudflare Worker 形态部署：
+
+- `dist/` 作为静态资源目录上传到 Worker
+- 未命中的路由回退到 `index.html`，适配 SPA 访问
+- `worker/index.ts` 作为 Worker 入口，负责转发静态资源请求
 
 ## 📈 性能优化
 
